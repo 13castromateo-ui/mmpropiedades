@@ -1,0 +1,1028 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>María Márquez Propiedades</title>
+<meta name="description" content="Compra, venta, alquiler y tasación de propiedades con asesoramiento personal.">
+<meta name="theme-color" content="#ffffff">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --bg-2:#f6f6f2; --card:#eeeee9;
+    --line:rgba(0,0,0,.1); --line-2:rgba(0,0,0,.2);
+    --text:#262726; --text-2:#62645f;
+    --green:#A5CF00; --green-dark:#5a7300; --ink:#262726; --amber:#f2b705;
+    --ease-out:cubic-bezier(0.23,1,0.32,1);
+    --wrap:1240px; --header:72px; --gutter:clamp(20px,4vw,48px);
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html{background:var(--bg);color-scheme:light;scroll-behavior:smooth;scrollbar-color:#c4c5bf transparent;accent-color:var(--green-dark)}
+  body{margin:0;font-family:'Montserrat',Arial,sans-serif;color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--green);color:var(--ink)}
+  input,textarea{caret-color:var(--green-dark)}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none;text-underline-offset:.2em}
+  button{font:inherit;color:inherit}
+  :focus-visible{outline:2px solid var(--green-dark);outline-offset:3px;border-radius:4px}
+  h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.025em;line-height:1.05;text-wrap:balance}
+  .display{font-size:clamp(2.6rem,7vw,6rem);font-weight:600}
+  .h2{font-size:clamp(2rem,4.4vw,3.5rem)}
+  .lead{color:var(--text-2);font-size:1.05rem;max-width:52ch;margin:1.1rem 0 0}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding-inline:var(--gutter)}
+  section{padding-block:clamp(72px,10vw,140px)}
+  .split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,6vw,96px);align-items:start}
+  .split > :first-child{position:sticky;top:calc(var(--header) + 32px)}
+
+  /* Lenis (scroll suave en computadora) */
+  html.lenis,html.lenis body{height:auto}
+  .lenis.lenis-smooth{scroll-behavior:auto!important}
+  .lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+  .lenis.lenis-stopped{overflow:hidden}
+
+  /* botones */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font:600 .95rem 'Montserrat',sans-serif;padding:.9rem 1.5rem;border-radius:999px;border:1px solid var(--green);background:var(--green);color:var(--ink);cursor:pointer;white-space:nowrap;
+       transition:transform 160ms var(--ease-out),background-color 200ms ease,border-color 200ms ease,color 200ms ease,opacity 200ms ease}
+  .btn:active{transform:scale(.97)}
+  .btn.ghost{background:transparent;color:var(--text);border-color:var(--line-2)}
+  .btn[disabled]{opacity:.4;cursor:not-allowed;transform:none}
+  .btn svg{width:18px;height:18px}
+  .btn svg[fill="none"]{stroke:currentColor}
+  h1[tabindex="-1"]:focus{outline:none}
+
+  /* encabezado: transparente sobre la foto, sólido al bajar */
+  .site{position:fixed;inset:0 0 auto;z-index:40;height:var(--header);border-bottom:1px solid transparent;transition:background-color 250ms ease,border-color 250ms ease}
+  .site.solid{background:rgba(255,255,255,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:var(--line)}
+  .site.solid .logo{color:var(--text)}
+  .site.solid ul a{color:var(--text-2)}
+  .site.solid .menu-btn span{background:var(--text)}
+  .site .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+  .logo{display:block;color:#fff;transition:color 250ms ease}
+  .logo svg{display:block;height:56px;width:203px}
+  .site ul{display:flex;gap:2rem;list-style:none;margin:0;padding:0;font-size:.92rem;font-weight:500}
+  .site ul a{color:rgba(255,255,255,.78);transition:color 200ms ease}
+  .site .btn{padding:.65rem 1.2rem;font-size:.88rem}
+  .menu-btn{display:none;background:none;border:0;padding:.5rem;cursor:pointer}
+  .menu-btn span{display:block;width:24px;height:2px;background:#fff;margin:5px 0;transition:transform 200ms var(--ease-out),opacity 150ms ease}
+  .menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  /* portada: la foto de la calle; al pasar por una propiedad, "se prenden las luces" */
+  .hero{position:relative;min-height:max(620px,100svh);display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;padding:0}
+  .layer{position:absolute;inset:0;background:#222 center/cover no-repeat;opacity:0;transform:scale(1.05);filter:brightness(.62) saturate(.85);
+         transition:opacity 700ms ease,transform 1400ms var(--ease-out),filter 700ms ease}
+  .layer.on{opacity:1;transform:none}
+  .hero.lit .layer.on{filter:brightness(1) saturate(1.06)}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(15,16,15,.96) 0%,rgba(15,16,15,.55) 32%,rgba(15,16,15,.1) 62%,rgba(15,16,15,.35) 100%);pointer-events:none}
+  .hero .wrap{position:relative;z-index:1;width:100%;padding-top:calc(var(--header) + 40px)}
+  .hero,.p-hero{color:#fff}
+  .hero .lead{color:rgba(255,255,255,.85)}
+  .picks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:clamp(36px,6vw,64px);border-top:1px solid rgba(255,255,255,.28)}
+  .pick{position:relative;display:block;padding:1.1rem 1.4rem 1.6rem 0;cursor:pointer}
+  .pick::before{content:"";position:absolute;left:0;right:1.4rem;top:-1px;height:2px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform 450ms var(--ease-out)}
+  .pick.on::before,.pick:focus-visible::before{transform:none}
+  .pick b{display:block;font-weight:600;font-size:1rem;line-height:1.3}
+  .pick span{display:block;color:rgba(255,255,255,.72);font-size:.85rem;margin-top:.25rem}
+
+  /* buscador */
+  .find{padding-block:28px;border-bottom:1px solid var(--line);background:var(--bg-2)}
+  .search{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:12px;align-items:end}
+  .search label{display:grid;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.06em;color:var(--text-2)}
+  select,input,textarea{font:400 1rem 'Montserrat',sans-serif;color:var(--text);background:#fff;border:1px solid var(--line-2);border-radius:12px;padding:.85rem 1rem;width:100%}
+  select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%2362645f' stroke-width='2'%3E%3Cpath d='m1 1 5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.4rem;cursor:pointer}
+  select:focus,input:focus,textarea:focus{outline:none;border-color:var(--green-dark);box-shadow:0 0 0 3px rgba(165,207,0,.25)}
+  textarea{min-height:130px;resize:vertical}
+
+  /* listado */
+  .head{display:flex;justify-content:space-between;align-items:end;gap:1.5rem;flex-wrap:wrap;margin-bottom:clamp(32px,4vw,56px)}
+  .tabs{display:flex;gap:.25rem;border:1px solid var(--line);padding:.25rem;border-radius:999px}
+  .tabs button{border:0;background:none;font:600 .85rem 'Montserrat',sans-serif;padding:.55rem 1.1rem;border-radius:999px;cursor:pointer;color:var(--text-2);transition:transform 160ms var(--ease-out),background-color 150ms ease,color 150ms ease}
+  .tabs button:active{transform:scale(.97)}
+  .tabs button[aria-pressed="true"]{background:var(--text);color:#fff}
+  .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,3vw,44px) clamp(20px,2.4vw,32px)}
+  .card{position:relative}
+  .card .ph{position:relative;aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:var(--card)}
+  .card .ph img{width:100%;height:100%;object-fit:cover;transition:transform 700ms var(--ease-out)}
+  .card.done .ph img{filter:grayscale(1);opacity:.6}
+  .card .body{padding-top:1rem}
+  .card .top{display:flex;justify-content:space-between;gap:1rem;align-items:baseline}
+  .card h3{font-size:1.08rem;font-weight:600;letter-spacing:-.01em;line-height:1.3}
+  .card h3 a::after{content:"";position:absolute;inset:0;z-index:1}
+  .price{font-weight:600;white-space:nowrap}
+  .price small{color:var(--text-2);font-weight:500}
+  .meta{color:var(--text-2);font-size:.88rem;margin-top:.2rem}
+  .feats{display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;margin-top:.7rem;color:var(--text-2);font-size:.85rem}
+  .feats span{display:flex;align-items:center;gap:.4rem}
+  .feats svg{width:16px;height:16px;stroke:var(--green-dark)}
+  .tag{position:absolute;top:14px;left:14px;z-index:2;font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .7rem;border-radius:999px;background:rgba(15,16,15,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff}
+  .tag.res{background:var(--amber);color:var(--ink)}
+  .card.rise{animation:rise 650ms var(--ease-out) backwards;animation-delay:calc(var(--i,0) * 70ms)}
+  @keyframes rise{from{opacity:0;transform:translateY(18px)}}
+  .empty{grid-column:1/-1;padding:3rem;text-align:center;color:var(--text-2);border:1px dashed var(--line-2);border-radius:16px}
+  .empty a{color:var(--green-dark);font-weight:600}
+
+  /* galería de la tarjeta: se desliza con el dedo y con flechas */
+  .gal{position:relative;height:100%}
+  .slides{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+  .slides::-webkit-scrollbar{display:none}
+  .slides img{flex:0 0 100%;scroll-snap-align:start}
+  .gal .nav{position:absolute;top:50%;z-index:3;width:36px;height:36px;border:0;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;cursor:pointer;opacity:0;transform:translateY(-50%);transition:opacity 150ms ease,transform 160ms var(--ease-out)}
+  .gal .nav:active{transform:translateY(-50%) scale(.92)}
+  .gal .nav svg{width:18px;height:18px;stroke:var(--ink)}
+  .gal .prev{left:10px} .gal .next{right:10px}
+  .gal .nav:focus-visible{opacity:1}
+  @media (hover:none){.gal .nav{opacity:1;width:32px;height:32px}}
+  .count{position:absolute;right:12px;bottom:12px;z-index:2;background:rgba(15,16,15,.7);color:#fff;font-size:.72rem;font-weight:600;padding:.2rem .55rem;border-radius:999px}
+
+  /* filas con líneas finas (servicios, pasos, comodidades, contacto) */
+  .rows{list-style:none;margin:0;padding:0;counter-reset:n}
+  .rows > li{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1.2rem;padding:1.5rem 0;border-top:1px solid var(--line)}
+  .rows > li:last-child{border-bottom:1px solid var(--line)}
+  .rows .ic{grid-row:span 2;width:24px;height:24px;stroke:var(--green-dark);margin-top:.15rem}
+  .rows h3{font-size:1.12rem;letter-spacing:-.01em;line-height:1.3}
+  .rows p{grid-column:2;margin:0;color:var(--text-2);max-width:56ch}
+  .rows.num > li::before{counter-increment:n;content:counter(n);grid-row:span 2;color:var(--green-dark);font-weight:600;font-size:.95rem;min-width:1.4rem;padding-top:.1rem}
+  .split .btn{margin-top:2rem}
+
+  /* vender: foto con pasos */
+  .sell-photo{margin-top:2.2rem;aspect-ratio:4/5;border-radius:18px;overflow:hidden;background:var(--card)}
+  .sell-photo img{width:100%;height:100%;object-fit:cover}
+
+  /* sobre mí */
+  .about{background:var(--bg-2)}
+  .portrait{aspect-ratio:4/5;border-radius:18px;overflow:hidden;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:clamp(4rem,10vw,7rem);font-weight:600;color:var(--green-dark);letter-spacing:-.04em}
+  .portrait img{width:100%;height:100%;object-fit:cover}
+  [data-campo="sobremi"] p{color:var(--text-2);font-size:1.05rem;max-width:58ch}
+
+  /* contacto */
+  .info{list-style:none;margin:2rem 0 0;padding:0}
+  .info li{display:flex;gap:1rem;align-items:center;padding:1.1rem 0;border-top:1px solid var(--line)}
+  .info svg{width:22px;height:22px;stroke:var(--green-dark);flex:none}
+  .info small{display:block;color:var(--text-2);font-size:.78rem}
+  form.contact{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  form.contact .full{grid-column:1/-1}
+  form.contact label{display:grid;gap:.4rem;font-size:.82rem;font-weight:600;color:var(--text-2)}
+  .ok{grid-column:1/-1;margin:0;padding:.9rem 1rem;border-radius:12px;background:rgba(165,207,0,.14);color:#3f6b0c;font-weight:600}
+
+  footer{border-top:1px solid var(--line);padding-block:48px 36px;color:var(--text-2);font-size:.88rem}
+  footer .in{display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap}
+  footer nav{display:flex;gap:1.5rem;flex-wrap:wrap}
+  footer .logo{color:var(--text)}
+  footer .logo svg{height:40px;width:145px}
+  footer .copy{margin-top:2rem;font-size:.8rem}
+
+  .wa{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:30;width:58px;height:58px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 10px 25px rgba(0,0,0,.35);transition:transform 200ms var(--ease-out)}
+  .wa:active{transform:scale(.95)}
+  .wa svg{width:30px;height:30px;fill:#fff}
+
+  /* ===== página de la propiedad ===== */
+  .p-hero{position:relative;min-height:max(560px,92svh);display:flex;align-items:flex-end;padding:0;overflow:hidden}
+  .p-hero .bg{position:absolute;inset:0;background:#222 center/cover no-repeat;animation:settle 1600ms var(--ease-out) both}
+  @keyframes settle{from{transform:scale(1.06)}}
+  .p-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(15,16,15,.95) 0%,rgba(15,16,15,.4) 40%,rgba(15,16,15,.15) 70%,rgba(15,16,15,.45) 100%)}
+  .p-hero .wrap{position:relative;z-index:1;width:100%;padding-bottom:clamp(28px,4vw,48px)}
+  .p-hero .tag{position:static;display:inline-block;margin-bottom:1.2rem}
+  .back{position:absolute;z-index:2;top:calc(var(--header) + 18px);left:var(--gutter);display:inline-flex;align-items:center;gap:.4rem;padding:.55rem 1rem .55rem .8rem;border-radius:999px;background:rgba(15,16,15,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:.85rem;font-weight:600;transition:transform 160ms var(--ease-out)}
+  .back:active{transform:scale(.97)}
+  .back svg{width:16px;height:16px;stroke:currentColor}
+  .facts{display:flex;flex-wrap:wrap;margin-top:clamp(24px,3vw,36px);border-top:1px solid rgba(255,255,255,.28)}
+  .facts div{padding:1rem 2.4rem 0 0}
+  .facts small{display:block;color:rgba(255,255,255,.7);font-size:.75rem;font-weight:600;letter-spacing:.06em}
+  .facts b{font-weight:600;font-size:1.15rem}
+  .desc p{color:var(--text-2);font-size:1.08rem;max-width:62ch;margin:0 0 1rem}
+  /* fotos: foto grande con flechas + miniaturas para elegir + pantalla completa */
+  .viewer{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:var(--card);touch-action:pan-y}
+  .main{width:100%;height:100%;object-fit:cover;transition:opacity 180ms ease;user-select:none;-webkit-user-drag:none}
+  .main.loading{opacity:.35}
+  .viewer .main{cursor:zoom-in}
+  .pnav{position:absolute;top:50%;z-index:2;width:48px;height:48px;border-radius:50%;border:0;background:rgba(255,255,255,.95);display:grid;place-items:center;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.18);transform:translateY(-50%);transition:transform 160ms var(--ease-out)}
+  .pnav:active{transform:translateY(-50%) scale(.92)}
+  .pnav svg{width:22px;height:22px;stroke:#262726}
+  .pnav.prev{left:16px} .pnav.next{right:16px}
+  .chip{position:absolute;bottom:16px;z-index:2;display:inline-flex;align-items:center;gap:.4rem;background:rgba(15,16,15,.72);color:#fff;font-size:.8rem;font-weight:600;padding:.4rem .8rem;border-radius:999px;border:0}
+  .chip svg{width:15px;height:15px;stroke:currentColor}
+  .pcount{left:16px}
+  button.chip{right:16px;cursor:pointer;transition:transform 160ms var(--ease-out)}
+  button.chip:active{transform:scale(.96)}
+  .thumbs{display:flex;gap:10px;overflow-x:auto;margin-top:12px;padding:2px 2px 6px;scrollbar-width:thin}
+  .thumbs button{flex:0 0 auto;width:120px;aspect-ratio:4/3;border-radius:10px;overflow:hidden;padding:0;border:2px solid transparent;background:var(--card);cursor:pointer;opacity:.6;transition:opacity 150ms ease,border-color 150ms ease}
+  .thumbs button[aria-pressed="true"]{opacity:1;border-color:var(--green-dark)}
+  .thumbs img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+  .lb{width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;background:#0f100f;color:#fff;
+      opacity:0;transition:opacity 150ms ease,overlay 150ms allow-discrete,display 150ms allow-discrete}
+  .lb[open]{display:grid;grid-template-rows:auto minmax(0,1fr) auto;opacity:1;transition-duration:220ms}
+  @starting-style{.lb[open]{opacity:0}}
+  .lb::backdrop{background:#0f100f}
+  .lb .top{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:14px var(--gutter);font-size:.9rem}
+  .lb .top b{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .lb .x{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:none;display:grid;place-items:center;cursor:pointer;flex:none}
+  .lb .x svg{width:22px;height:22px;stroke:#fff}
+  .lb .box{position:relative;display:grid;place-items:center;min-height:0;padding:0 84px;touch-action:pan-y}
+  .lb .main{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:8px}
+  .lb .thumbs{justify-content:safe center;padding:12px var(--gutter) calc(18px + env(safe-area-inset-bottom,0px));margin:0}
+  .lb .thumbs button{width:96px;opacity:.45}
+  .lb .thumbs button[aria-pressed="true"]{border-color:var(--green)}
+  .amen{display:grid;grid-template-columns:1fr 1fr;column-gap:2rem;list-style:none;margin:0;padding:0}
+  .amen li{display:flex;align-items:center;gap:.8rem;padding:1.1rem 0;border-top:1px solid var(--line)}
+  .amen svg{width:22px;height:22px;stroke:var(--green-dark);flex:none}
+  .plan img{width:100%;border-radius:18px;background:#fff}
+  /* agendar visita */
+  .book{text-align:center}
+  .book .lead{margin-inline:auto}
+  .cal{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(24px,4vw,48px);max-width:980px;margin:clamp(32px,5vw,56px) auto 0;padding:clamp(20px,3vw,36px);background:var(--bg-2);border:1px solid var(--line);border-radius:22px;text-align:left}
+  .cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+  .cal-head b{font-size:1.05rem}
+  .cal-head button{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:none;cursor:pointer;display:grid;place-items:center;transition:transform 160ms var(--ease-out)}
+  .cal-head button:active{transform:scale(.92)}
+  .cal-head button[disabled]{opacity:.3;cursor:not-allowed}
+  .cal-head svg{width:16px;height:16px;stroke:currentColor}
+  .days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+  .days .dow{text-align:center;font-size:.72rem;font-weight:600;color:var(--text-2);padding-bottom:.4rem}
+  .days button{aspect-ratio:1;border:1px solid transparent;border-radius:12px;background:var(--card);cursor:pointer;font-weight:500;font-variant-numeric:tabular-nums;transition:transform 160ms var(--ease-out),background-color 150ms ease,color 150ms ease}
+  .days button:active{transform:scale(.94)}
+  .days button[disabled]{background:none;color:#b3b4ae;cursor:not-allowed}
+  .days button.today{border-color:var(--line-2)}
+  .days button[aria-pressed="true"]{background:var(--green);color:var(--ink);font-weight:700}
+  .slots h3{font-size:1.05rem;margin-bottom:1rem;line-height:1.35}
+  .slots ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+  .slots li button{width:100%;text-align:left;padding:.85rem 1rem;border-radius:12px;border:1px solid var(--line);background:none;cursor:pointer;font-weight:600;font-variant-numeric:tabular-nums;transition:border-color 150ms ease,background-color 150ms ease,transform 160ms var(--ease-out)}
+  .slots li button:active{transform:scale(.98)}
+  .slots li button[aria-pressed="true"]{border-color:var(--green-dark);background:rgba(165,207,0,.14)}
+  .slots li button[disabled]{opacity:.35;cursor:not-allowed}
+  .slots .hint{color:var(--text-2);font-size:.92rem}
+  .slots .btn{width:100%;margin-top:1.2rem}
+  .slots .note{color:var(--text-2);font-size:.8rem;margin:.7rem 0 0}
+
+  /* hover solo con mouse: en celulares queda pegado después de tocar */
+  @media (hover:hover) and (pointer:fine){
+    .site ul a:hover{color:#fff}
+    .btn:hover{background:var(--green-dark);border-color:var(--green-dark);color:#fff}
+    .site.solid ul a:hover{color:var(--text)}
+    .btn.ghost:hover{background:var(--text);color:#fff;border-color:var(--text)}
+    .card:hover .ph img{transform:scale(1.035)}
+    .gal:hover .nav{opacity:1}
+    .days button:not([disabled]):not([aria-pressed="true"]):hover{background:#e2e2dc}
+    .slots li button:not([disabled]):hover{border-color:var(--line-2)}
+    footer a:hover{color:var(--text)}
+  }
+
+  @media (max-width:980px){
+    .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .split{grid-template-columns:1fr}
+    .split > :first-child{position:static}
+    .picks{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .cal{grid-template-columns:1fr}
+  }
+  @media (max-width:760px){
+    :root{--header:64px}
+    .site ul{display:none;position:fixed;inset:var(--header) 0 auto;flex-direction:column;gap:0;background:#fff;border-bottom:1px solid var(--line);padding:.5rem var(--gutter) 1.5rem}
+    .site ul.open{display:flex}
+    .site ul a{display:block;padding:.9rem 0;font-size:1.1rem;border-bottom:1px solid var(--line)}
+    .site .btn{display:none}
+    .menu-btn{display:block}
+    .logo svg{height:44px;width:159px}
+    .picks{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--gutter);scrollbar-width:none;margin-inline:calc(-1 * var(--gutter));padding-inline:var(--gutter);border-top:0;gap:12px}
+    .picks::-webkit-scrollbar{display:none}
+    .pick{flex:0 0 72%;scroll-snap-align:start;border-top:1px solid rgba(255,255,255,.28);padding-right:0}
+    .pick::before{right:0}
+    .search{grid-template-columns:1fr 1fr}
+    .search .btn{grid-column:1/-1}
+    .amen{grid-template-columns:1fr}
+    .viewer{aspect-ratio:4/3}
+    .thumbs button{width:84px}
+    .pnav{width:40px;height:40px}
+    .pnav.prev{left:10px} .pnav.next{right:10px}
+    .lb .box{padding:0}
+    .lb .pnav{background:rgba(255,255,255,.85)}
+  }
+  @media (max-width:560px){
+    .grid{grid-template-columns:1fr}
+    form.contact{grid-template-columns:1fr}
+    .search{grid-template-columns:1fr}
+    .facts div{padding-right:1.6rem}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .card.rise,.p-hero .bg{animation:none}
+    .layer{transform:none!important}
+    .btn:active,.tabs button:active,.days button:active,.slots li button:active,.back:active,.wa:active{transform:none}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- logo: "m" verde arriba de la línea y su reflejo gris abajo; lo oscuro toma el color del texto (blanco sobre fotos) -->
+    <symbol id="mm-logo" viewBox="40 236 1700 470">
+      <path d="M71,425V348.5A59.5,59.5 0 0 1 190,348.5V425M190,348.5A59.5,59.5 0 0 1 309,348.5V425M71,348.5V270" fill="none" stroke="#A5CF00" stroke-width="38"/>
+      <path d="M71,425V501.5A59.5,59.5 0 0 0 190,501.5V425M190,501.5A59.5,59.5 0 0 0 309,501.5V425M309,501.5V586" fill="none" stroke="currentColor" stroke-opacity=".6" stroke-width="38"/>
+      <rect x="52" y="422" width="1670" height="5" fill="currentColor"/>
+      <text x="432" y="398" font-family="'Open Sans',Arial,sans-serif" font-size="208" font-weight="600" fill="#A5CF00" textLength="812" lengthAdjust="spacing">maría</text>
+      <text x="432" y="588" font-family="'Open Sans',Arial,sans-serif" font-size="208" font-weight="600" fill="currentColor" textLength="1282" lengthAdjust="spacing">márquez</text>
+      <text x="415" y="684" font-family="'Open Sans',Arial,sans-serif" font-size="74" font-weight="600" fill="currentColor" textLength="842" lengthAdjust="spacing">.Propiedades.</text>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="site" id="site">
+  <div class="wrap">
+    <a href="#inicio" class="logo" aria-label="María Márquez Propiedades, inicio"><svg><use href="#mm-logo"/></svg></a>
+    <nav aria-label="Principal">
+      <ul id="menu">
+        <li><a href="#propiedades">Propiedades</a></li>
+        <li><a href="#vender">Vender</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+    <a href="#contacto" class="btn">Tasá tu propiedad</a>
+    <button class="menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="home">
+  <section class="hero" id="inicio">
+    <div class="layer base on" style="background-image:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=2000&q=75')"></div>
+    <div class="wrap">
+      <h1 class="display" data-campo="tituloportada">Tu próximo hogar, con quien conoce el camino.</h1>
+      <p class="lead" data-campo="textoportada">Compra, venta y alquiler de propiedades con asesoramiento personal en cada paso, desde la primera visita hasta la firma.</p>
+      <nav class="picks" id="picks" aria-label="Propiedades destacadas"></nav>
+    </div>
+  </section>
+
+  <div class="find">
+    <form class="wrap search" id="search" role="search">
+      <label>OPERACIÓN
+        <select name="op"><option value="">Todas</option><option value="venta">Comprar</option><option value="alquiler">Alquilar</option></select>
+      </label>
+      <label>TIPO
+        <select name="tipo"><option value="">Todos</option></select>
+      </label>
+      <label>BARRIO
+        <select name="zona"><option value="">Todos</option></select>
+      </label>
+      <button class="btn" type="submit">Buscar</button>
+    </form>
+  </div>
+
+  <section id="propiedades">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="h2">Propiedades disponibles.</h2>
+        <div class="tabs" role="group" aria-label="Filtrar por operación">
+          <button type="button" aria-pressed="true" data-op="">Todas</button>
+          <button type="button" aria-pressed="false" data-op="venta">Venta</button>
+          <button type="button" aria-pressed="false" data-op="alquiler">Alquiler</button>
+        </div>
+      </div>
+      <div class="grid" id="grid"><div class="empty">Cargando propiedades…</div></div>
+    </div>
+  </section>
+
+  <section id="servicios" style="padding-top:0">
+    <div class="wrap split">
+      <div>
+        <h2 class="h2">Lo que hacemos.</h2>
+        <p class="lead">Te acompañamos en cada paso, desde la tasación hasta la entrega de llaves.</p>
+      </div>
+      <ul class="rows">
+        <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg><h3>Venta</h3><p>Valuación, fotos profesionales y difusión en los principales portales para vender al mejor precio.</p></li>
+        <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 8.2-8.2"/><path d="m16 7 3 3"/><path d="m14 9 2 2"/></svg><h3>Alquiler</h3><p>Buscamos inquilinos confiables, gestionamos garantías y te acompañamos durante todo el contrato.</p></li>
+        <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg><h3>Tasación</h3><p>Sabé cuánto vale tu propiedad con una tasación basada en ventas reales de la zona.</p></li>
+        <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6"/><path d="M9 17h4"/></svg><h3>Asesoramiento</h3><p>Te guiamos con trámites, documentación, créditos hipotecarios y coordinación con escribanía.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="vender" style="padding-top:0">
+    <div class="wrap split">
+      <div>
+        <h2 class="h2">Vendé sin complicarte.</h2>
+        <p class="lead">Nos ocupamos de todo para que vos solo tengas que decidir.</p>
+        <a href="#contacto" class="btn">Pedí tu tasación gratis</a>
+        <div class="sell-photo"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000&q=75" alt="Fachada de una casa moderna" loading="lazy"></div>
+      </div>
+      <ol class="rows num">
+        <li><h3>Tasación sin costo</h3><p>Visitamos tu propiedad y te damos un valor realista de mercado.</p></li>
+        <li><h3>Fotos y publicación</h3><p>Fotos profesionales y publicación en los portales más visitados.</p></li>
+        <li><h3>Visitas filtradas</h3><p>Solo mostramos a interesados que pueden concretar la compra.</p></li>
+        <li><h3>Firma segura</h3><p>Coordinamos con escribanía hasta la entrega de llaves.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="about" id="nosotros">
+    <div class="wrap split">
+      <div class="portrait" data-campo="fotodemaria" aria-hidden="true">MM</div>
+      <div>
+        <h2 class="h2">Hola, soy María Márquez.</h2>
+        <div data-campo="sobremi" style="margin-top:1.4rem"><p>[Texto de ejemplo] Acompaño a familias e inversores a comprar, vender y alquilar con información clara y un trato cercano. Conozco cada barrio en el que trabajo y me ocupo personalmente de cada operación.</p>
+        <p>Acá va la historia real de María: años de experiencia, zonas en las que trabaja y por qué sus clientes la eligen.</p></div>
+        <a href="#contacto" class="btn ghost" style="margin-top:1rem">Hablemos</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="wrap split">
+      <div>
+        <h2 class="h2">Hablemos.</h2>
+        <p class="lead">Escribime y te respondo en el día.</p>
+        <ul class="info">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><p style="margin:0"><small>Teléfono / WhatsApp</small><span data-campo="telefono">099 000 000</span></p></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg><p style="margin:0"><small>Email</small><span data-campo="email">contacto@ejemplo.com.uy</span></p></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg><p style="margin:0"><small>Oficina</small><span data-campo="direccion">Dirección de ejemplo, Montevideo</span></p></li>
+        </ul>
+      </div>
+      <form class="contact" id="contact-form" novalidate>
+        <label>Nombre<input name="nombre" required autocomplete="name"></label>
+        <label>Teléfono<input name="tel" type="tel" required autocomplete="tel"></label>
+        <label class="full">Email<input name="email" type="email" autocomplete="email"></label>
+        <label class="full">Me interesa
+          <select name="motivo"><option>Comprar</option><option>Alquilar</option><option>Vender mi propiedad</option><option>Tasar mi propiedad</option><option>Visitar una propiedad</option><option>Otro</option></select>
+        </label>
+        <label class="full">Mensaje<textarea name="mensaje" placeholder="Contame qué estás buscando"></textarea></label>
+        <button class="btn full" type="submit">Enviar consulta</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<main id="prop" hidden></main>
+<dialog id="lb" class="lb" aria-label="Fotos en pantalla completa" data-lenis-prevent></dialog>
+
+<footer>
+  <div class="wrap">
+    <div class="in">
+      <a href="#inicio" class="logo" aria-label="Inicio"><svg><use href="#mm-logo"/></svg></a>
+      <nav aria-label="Pie"><a href="#propiedades">Propiedades</a><a href="#vender">Vender</a><a href="#nosotros">Nosotros</a><a href="#contacto">Contacto</a></nav>
+    </div>
+    <div class="copy">© 2026 María Márquez Propiedades. Todos los derechos reservados.<br>Este sitio usa Google Analytics, que guarda cookies, para contar visitas y saber qué propiedades interesan más. No usamos esos datos para identificarte.</div>
+  </div>
+</footer>
+
+<a class="wa" href="#contacto" aria-label="Escribir por WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 2.5 1 3 .8 3.6.7.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.6 2.2 13.8 2.2 12 2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm8.3-18.1C18.1 1.5 15.1.2 12 .2 5.5.2.2 5.5.2 12c0 2.1.5 4.1 1.6 5.9L.1 24l6.3-1.6c1.7.9 3.7 1.4 5.6 1.4 6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.5-8.3z"/></svg>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script>
+// ===== CONFIGURACIÓN =====
+// ID de la planilla de Google de María: es la parte del link entre "/d/" y "/edit".
+// La planilla tiene que estar compartida como "Cualquier persona con el enlace: Lector".
+// Si lo dejás vacío, la web muestra las propiedades de ejemplo.
+const SHEET_ID = '1lEecdw6e3UhwyNUrOm7dQmHzTXBBbF6UxtWwIusNc3w';
+// Horarios de visita si la pestaña Datos no trae "Horarios de visita". Domingo sin visitas.
+let SLOTS = ['10:00', '11:30', '15:00', '16:30', '18:00'];
+const SIN_VISITAS = [0]; // 0 = domingo
+const DIAS_ADELANTE = 60;
+// Estadísticas: pegá acá el ID de medición de Google Analytics 4 (empieza con "G-"). Vacío = sin estadísticas.
+const GA_ID = 'G-E20RTE13VD';
+// =========================
+
+// ----- estadísticas -----
+// Cada acción importante manda un "evento" a Google Analytics. También quedan en window.mmEventos para revisarlos.
+if (GA_ID) {
+  const s = document.createElement('script');
+  s.async = true; s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+  document.head.append(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { dataLayer.push(arguments); };
+  gtag('js', new Date());
+  gtag('config', GA_ID, {send_page_view: false}); // las páginas se cuentan a mano (también cada propiedad)
+}
+function track(name, params = {}) {
+  (window.mmEventos ||= []).push([name, params]);
+  if (GA_ID) gtag('event', name, params);
+}
+function pageView(title, path) {
+  track('page_view', {page_title: title, page_location: location.origin + location.pathname.replace(/[^/]*$/, '') + path.replace(/^\//, '')});
+}
+
+const U = (...ids) => ids.map(id => `https://images.unsplash.com/${id}?w=1600&q=72`).join('\n');
+const IN = ['photo-1600210492486-724fe5c67fb0', 'photo-1556911220-bff31c812dba', 'photo-1600566753190-17f0baa2a6c3'];
+const demo = [
+  {operacion:'Venta', tipo:'Casa', barrio:'Carrasco', titulo:'Casa con jardín y piscina', precio:'USD 420.000', dormitorios:'4', banos:'3', metros:'280', fotos:U('photo-1568605114967-8130f3a36994', ...IN), estado:'Disponible', destacada:'Sí',
+   descripcion:'Amplia casa en una de las mejores zonas de Carrasco, ideal para familias.\nLiving comedor con salida al jardín, cocina integrada y suite principal con vestidor.', amenities:'Piscina, Parrillero, Jardín, Garaje para 2 autos, Aire acondicionado, Seguridad'},
+  {operacion:'Venta', tipo:'Apartamento', barrio:'Pocitos', titulo:'Apartamento con vista al mar', precio:'USD 245.000', dormitorios:'2', banos:'2', metros:'85', fotos:U('photo-1502672260266-1c1ef2d93688', IN[1]), estado:'Reservada', destacada:'Sí',
+   descripcion:'Luminoso apartamento frente a la rambla, con vista abierta al mar desde el living.', amenities:'Balcón, Vista al mar, Ascensor, Portería 24 hs, Gimnasio'},
+  {operacion:'Alquiler', tipo:'Apartamento', barrio:'Punta Carretas', titulo:'Monoambiente luminoso a estrenar', precio:'$ 28.000', dormitorios:'Monoambiente', banos:'1', metros:'42', fotos:U('photo-1522708323590-d24dbb6b0267'), estado:'Disponible', destacada:'Sí',
+   descripcion:'A estrenar, a pasos del shopping y la rambla.', amenities:'Amueblado, Lavadero, Acepta mascotas'},
+  {operacion:'Venta', tipo:'Casa', barrio:'Malvín', titulo:'Casa familiar a dos cuadras de la rambla', precio:'USD 310.000', dormitorios:'3', banos:'2', metros:'190', fotos:U('photo-1570129477492-45c003edd2be'), estado:'Vendida'},
+  {operacion:'Alquiler', tipo:'Casa', barrio:'Buceo', titulo:'Casa con patio y parrillero', precio:'$ 45.000', dormitorios:'3', banos:'2', metros:'140', fotos:U('photo-1512917774080-9991f1c4c750', IN[2]), estado:'Disponible', destacada:'Sí',
+   amenities:'Patio, Parrillero, Calefacción a leña, Cochera'},
+  {operacion:'Venta', tipo:'Terreno', barrio:'Carrasco', titulo:'Terreno en zona residencial', precio:'USD 180.000', dormitorios:'', banos:'', metros:'600', fotos:U('photo-1500382017468-9049fed747ef'), estado:'Disponible'},
+];
+
+const norm = s => String(s ?? '').normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().trim();
+const key = s => norm(s).replace(/[^a-z0-9]/g, '');
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => '&#' + c.charCodeAt(0) + ';');
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// CSV con comillas, comas y saltos de línea dentro de las celdas
+function parseCSV(t) {
+  const rows = []; let row = [], f = '', q = false;
+  for (let i = 0; i < t.length; i++) {
+    const c = t[i];
+    if (q) { if (c === '"') { if (t[i + 1] === '"') { f += '"'; i++; } else q = false; } else f += c; }
+    else if (c === '"') q = true;
+    else if (c === ',') { row.push(f); f = ''; }
+    else if (c === '\n') { row.push(f); rows.push(row); row = []; f = ''; }
+    else if (c !== '\r') f += c;
+  }
+  if (f || row.length) { row.push(f); rows.push(row); }
+  return rows;
+}
+function toObjects(rows) {
+  const h = (rows[0] || []).map(key);
+  return rows.slice(1).filter(r => r.some(v => v.trim()))
+    .map(r => Object.fromEntries(h.map((k, i) => [k, (r[i] || '').trim()])));
+}
+async function loadTab(tab) {
+  const r = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tab)}&_=${Date.now()}`); // evita copias viejas en caché
+  if (!r.ok) throw new Error(tab + ': ' + r.status);
+  return toObjects(parseCSV(await r.text()));
+}
+
+// Link de Google Drive ("Compartir > Copiar enlace") -> imagen directa. Otros links quedan igual.
+// shortcut: depende de lh3.googleusercontent.com; si Google lo cambia, subir las fotos a otro lado (ej. Cloudinary)
+function foto(u) {
+  const m = String(u).match(/\/d\/([\w-]{20,})|[?&]id=([\w-]{20,})/);
+  return m ? `https://lh3.googleusercontent.com/d/${m[1] || m[2]}=w1600` : u;
+}
+// Columna "Fotos": varios links separados por enter, espacio o coma. La primera es la portada.
+const fotosDe = p => String(p.fotos || p.foto || '').split(/[\s,]+/).filter(u => /^https?:\/\/|\.(jpe?g|png|webp)$/i.test(u)).map(foto);
+const cssUrl = u => `url("${String(u).replace(/["\\\n]/g, '')}")`;
+
+let waNumber = '';
+function applyDatos(rows) {
+  const d = {};
+  rows.forEach(r => { if (r.campo && r.valor) d[key(r.campo)] = r.valor; });
+  document.querySelectorAll('[data-campo]').forEach(el => {
+    const v = d[el.dataset.campo];
+    if (!v) { const row = el.closest('.info > li'); if (row) row.hidden = true; return; } // contacto vacío: se oculta la fila
+    if (el.dataset.campo === 'sobremi') el.innerHTML = v.split(/\n+/).map(p => `<p>${esc(p)}</p>`).join('');
+    else if (el.dataset.campo === 'fotodemaria') el.innerHTML = `<img src="${esc(foto(v))}" alt="María Márquez">`;
+    else el.textContent = v;
+  });
+  if (d.fotoportada) document.querySelector('.layer.base').style.backgroundImage = cssUrl(foto(d.fotoportada));
+  if (d.horariosdevisita) { const s = d.horariosdevisita.split(/[,;\n]+/).map(t => t.trim()).filter(t => /^\d{1,2}:\d{2}$/.test(t)); if (s.length) SLOTS = s; }
+  if (d.whatsapp) {
+    let n = d.whatsapp.replace(/\D/g, '');
+    if (n.startsWith('0')) n = n.slice(1);
+    if (!n.startsWith('598')) n = '598' + n;
+    waNumber = n;
+    const wa = document.querySelector('.wa');
+    wa.href = 'https://wa.me/' + n; wa.target = '_blank'; wa.rel = 'noopener';
+  }
+}
+
+const icon = d => `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const I = {
+  bed: icon('<path d="M2 18V6"/><path d="M2 12h20v6"/><path d="M22 18v-4a3 3 0 0 0-3-3h-8v4"/><circle cx="6.5" cy="9.5" r="1.5"/>'),
+  bath: icon('<path d="M4 12h16v3a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M6 12V5a2 2 0 0 1 4 0"/>'),
+  area: icon('<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>'),
+  left: icon('<path d="m15 18-6-6 6-6"/>'),
+  right: icon('<path d="m9 18 6-6-6-6"/>'),
+  expand: icon('<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>'),
+  close: icon('<path d="M18 6 6 18M6 6l12 12"/>'),
+  wa: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 2.5 1 3 .8 3.6.7.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.6 2.2 13.8 2.2 12 2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm8.3-18.1C18.1 1.5 15.1.2 12 .2 5.5.2.2 5.5.2 12c0 2.1.5 4.1 1.6 5.9L.1 24l6.3-1.6c1.7.9 3.7 1.4 5.6 1.4 6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.5-8.3z"/></svg>',
+};
+
+// Columna "Amenities": se separan con coma. Cada una busca su ícono por palabra clave;
+// si no hay ícono para esa palabra, lleva un tilde. Para sumar un ícono, agregar una línea acá.
+const AMEN = [
+  [/piscina|pileta/, '<path d="M2 19c2 0 2-1.5 4-1.5s2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"/><path d="M8 15V5a2 2 0 0 1 4 0"/><path d="M16 15V5a2 2 0 0 0-4 0"/><path d="M8 9h8"/>'],
+  [/parrill|barbacoa|asador|quincho/, '<path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-9-1 2-2 3-3 3 0-2-1-4-3-6-1 4-4 7-4 12 0 4 3 7 7 7z"/>'],
+  [/balcon|terraza|azotea/, '<path d="M3 21h18"/><path d="M5 21v-8h14v8"/><path d="M9 13v8M15 13v8"/><path d="M7 13V4h10v9"/>'],
+  [/garaje|cochera|estacionamiento|parking/, '<path d="M5 17h14v-5l-2-5H7l-2 5z"/><circle cx="7.5" cy="17" r="1.5"/><circle cx="16.5" cy="17" r="1.5"/><path d="M5 12h14"/>'],
+  [/jardin|patio|parque|fondo/, '<path d="M12 22V12"/><path d="M12 12C7 12 5 8 5 4c4 0 7 2 7 8z"/><path d="M12 14c4 0 7-2 7-7-4 0-7 2-7 7z"/>'],
+  [/aire|split/, '<path d="M12 2v20M4.9 7l14.2 10M19.1 7 4.9 17"/>'],
+  [/calefacc|estufa|losa|radiante|lena|chimenea/, '<path d="M14 14.8V4a2 2 0 0 0-4 0v10.8a4 4 0 1 0 4 0z"/>'],
+  [/gimnasio|gym/, '<path d="M6 7v10M18 7v10M3 10v4M21 10v4M6 12h12"/>'],
+  [/segur|porter|vigil|alarma/, '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>'],
+  [/ascensor/, '<rect x="5" y="2" width="14" height="20" rx="2"/><path d="m9 9 3-3 3 3M9 15l3 3 3-3"/>'],
+  [/lavadero|lavarropa/, '<rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="13" r="5"/><path d="M8 6h.01M11 6h.01"/>'],
+  [/mascota/, '<circle cx="7" cy="10" r="1.6"/><circle cx="11" cy="6.5" r="1.6"/><circle cx="16" cy="7.5" r="1.6"/><circle cx="18.5" cy="12" r="1.6"/><path d="M8.5 17c0-2.5 2-4.5 4-4.5s4 2 4 4.5c0 1.5-1.5 2.5-4 2.5s-4-1-4-2.5z"/>'],
+  [/amueblad|amoblad|muebl/, '<path d="M4 11V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3"/><path d="M2 13a2 2 0 0 1 4 0v2h12v-2a2 2 0 0 1 4 0v5H2z"/><path d="M5 18v2M19 18v2"/>'],
+  [/vista|al mar|rambla/, '<path d="M2 18h20"/><path d="M6 18a6 6 0 0 1 12 0"/><path d="M12 6V4M4.9 9.9 3.5 8.5M19.1 9.9l1.4-1.4"/>'],
+];
+const amenIcon = a => icon((AMEN.find(([re]) => re.test(norm(a))) || [, '<path d="m5 12 5 5L20 7"/>'])[1]);
+const amenities = p => String(p.amenities || '').split(/[,;\n]+/).map(s => s.trim()).filter(Boolean);
+
+// ----- piezas de una propiedad -----
+const cerrada = p => ['vendida', 'alquilada'].includes(norm(p.estado));
+const alqDe = p => norm(p.operacion) === 'alquiler';
+const num = s => parseInt(s) || 0;
+const lugar = p => [p.tipo, p.barrio].filter(Boolean).join(' · ');
+const precioDe = p => `<span class="price">${esc(p.precio || 'Consultar')}${alqDe(p) && p.precio ? ' <small>/ mes</small>' : ''}</span>`;
+function tagDe(p) {
+  if (cerrada(p)) return `<span class="tag">${alqDe(p) ? 'Alquilada' : 'Vendida'}</span>`;
+  if (norm(p.estado) === 'reservada') return '<span class="tag res">Reservada</span>';
+  return `<span class="tag">${alqDe(p) ? 'Alquiler' : 'Venta'}</span>`;
+}
+const dormDe = p => norm(p.dormitorios).startsWith('mono') ? 'Monoambiente' : num(p.dormitorios) ? `${p.dormitorios} dorm.` : '';
+const featsDe = p => `<div class="feats">
+  ${dormDe(p) ? `<span>${I.bed}${esc(dormDe(p))}</span>` : ''}
+  ${num(p.banos) ? `<span>${I.bath}${esc(p.banos)} baño${num(p.banos) > 1 ? 's' : ''}</span>` : ''}
+  ${num(p.metros) ? `<span>${I.area}${num(p.metros)} m²</span>` : ''}
+</div>`;
+
+function gal(fs, alt) {
+  if (!fs.length) return '';
+  const many = fs.length > 1;
+  return `<div class="gal"><div class="slides">${fs.map((u, i) => `<img src="${esc(u)}" alt="${esc(alt)}${many ? ` – foto ${i + 1}` : ''}" loading="lazy" onerror="this.remove()">`).join('')}</div>${many ? `
+    <button type="button" class="nav prev" aria-label="Foto anterior">${I.left}</button>
+    <button type="button" class="nav next" aria-label="Foto siguiente">${I.right}</button>
+    <span class="count">1 / ${fs.length}</span>` : ''}</div>`;
+}
+function slide(btn) {
+  const s = btn.closest('.gal').querySelector('.slides'), w = s.clientWidth, n = s.children.length;
+  const i = Math.round(s.scrollLeft / w), dir = btn.classList.contains('next') ? 1 : -1;
+  s.scrollTo({left: ((i + dir + n) % n) * w, behavior: calm ? 'instant' : 'smooth'});
+}
+document.addEventListener('scroll', e => {
+  const s = e.target;
+  if (!s.classList?.contains('slides')) return;
+  const c = s.parentElement.querySelector('.count');
+  if (c) c.textContent = `${Math.round(s.scrollLeft / s.clientWidth) + 1} / ${s.children.length}`;
+}, true);
+document.addEventListener('click', e => { const nav = e.target.closest('.gal .nav'); if (nav) { e.preventDefault(); slide(nav); } });
+
+const card = p => `
+  <article class="card${cerrada(p) ? ' done' : ''}">
+    <div class="ph">${gal(fotosDe(p), p.titulo)}${tagDe(p)}</div>
+    <div class="body">
+      <div class="top"><h3><a href="#/propiedad/${p.slug}">${esc(p.titulo)}</a></h3>${precioDe(p)}</div>
+      <div class="meta">${esc(lugar(p))}</div>
+      ${featsDe(p)}
+    </div>
+  </article>`;
+
+// ----- inicio -----
+const grid = document.getElementById('grid');
+const filters = {op: '', tipo: '', zona: ''};
+let props = [];
+
+function buildFilters() {
+  const fill = (name, field) => {
+    const vals = [...new Set(props.map(p => p[field]).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'es'));
+    document.querySelector(`#search [name=${name}]`).innerHTML = '<option value="">Todos</option>' + vals.map(v => `<option>${esc(v)}</option>`).join('');
+  };
+  fill('tipo', 'tipo'); fill('zona', 'barrio');
+}
+
+function render() {
+  const list = props
+    .filter(p => (!filters.op || norm(p.operacion) === filters.op) && (!filters.tipo || p.tipo === filters.tipo) && (!filters.zona || p.barrio === filters.zona))
+    .sort((a, b) => cerrada(a) - cerrada(b)); // vendidas y alquiladas al final
+  grid.innerHTML = list.length ? list.map(card).join('')
+    : '<div class="empty">No hay propiedades con esos filtros por ahora. <a href="#contacto">Avisame qué buscás</a> y te contacto cuando aparezca.</div>';
+  document.querySelectorAll('.tabs button').forEach(b => b.setAttribute('aria-pressed', b.dataset.op === filters.op));
+  reveal(grid);
+}
+
+// Portada: propiedades destacadas (columna "Destacada" = Sí; si no hay, las primeras disponibles).
+// Al pasar el mouse por una, su foto reemplaza la de la portada y "se prenden las luces".
+function buildPicks() {
+  const hero = document.querySelector('.hero'), nav = document.getElementById('picks');
+  const ok = props.filter(p => !cerrada(p) && fotosDe(p).length);
+  const marked = ok.filter(p => norm(p.destacada).startsWith('si'));
+  const picks = (marked.length ? marked : ok).slice(0, 4);
+  hero.querySelectorAll('.layer:not(.base)').forEach(l => l.remove());
+  nav.hidden = !picks.length;
+  nav.innerHTML = picks.map((p, i) => `<a class="pick" href="#/propiedad/${p.slug}" data-i="${i}"><b>${esc(p.titulo)}</b><span>${esc([p.barrio, p.precio].filter(Boolean).join(' · '))}</span></a>`).join('');
+  const base = hero.querySelector('.layer.base');
+  const layers = picks.map(p => {
+    const l = document.createElement('div');
+    l.className = 'layer';
+    l.style.backgroundImage = cssUrl(fotosDe(p)[0]);
+    base.after(l);
+    return l;
+  });
+  const show = i => {
+    base.classList.toggle('on', i < 0);
+    layers.forEach((l, j) => l.classList.toggle('on', j === i));
+    nav.querySelectorAll('.pick').forEach((a, j) => a.classList.toggle('on', j === i));
+    hero.classList.toggle('lit', i >= 0);
+  };
+  nav.querySelectorAll('.pick').forEach((a, i) => {
+    a.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') show(i); });
+    a.addEventListener('focus', () => show(i));
+  });
+  nav.addEventListener('pointerleave', () => show(-1));
+  nav.addEventListener('focusout', e => { if (!nav.contains(e.relatedTarget)) show(-1); });
+}
+
+// Único movimiento de entrada: las tarjetas suben en cascada al entrar en pantalla.
+const io = !calm && 'IntersectionObserver' in window && new IntersectionObserver(entries => {
+  entries.filter(e => e.isIntersecting).forEach((e, i) => {
+    e.target.style.setProperty('--i', i);
+    e.target.classList.add('rise');
+    io.unobserve(e.target);
+  });
+}, {rootMargin: '0px 0px -8% 0px'});
+function reveal(root) { if (io) root.querySelectorAll('.card').forEach(c => io.observe(c)); }
+
+document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => {
+  filters.op = b.dataset.op; document.querySelector('#search [name=op]').value = filters.op; track('filtrar_operacion', {operacion: filters.op || 'todas'}); render();
+}));
+document.getElementById('search').addEventListener('submit', e => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  filters.op = f.get('op'); filters.tipo = f.get('tipo'); filters.zona = f.get('zona');
+  track('buscar', {operacion: filters.op || 'todas', tipo: filters.tipo || 'todos', barrio: filters.zona || 'todos'});
+  render();
+  scrollToEl(document.getElementById('propiedades'));
+});
+
+// ----- página de una propiedad (#/propiedad/nombre) -----
+const home = document.getElementById('home'), prop = document.getElementById('prop');
+let homeY = 0;
+
+function showProp(p) {
+  if (!home.hidden) homeY = scrollY;
+  const fs = fotosDe(p), am = amenities(p), desc = String(p.descripcion || '').split(/\n+/).filter(s => s.trim());
+  const facts = [['PRECIO', (p.precio || 'Consultar') + (alqDe(p) && p.precio ? ' / mes' : '')], ['DORMITORIOS', norm(p.dormitorios).startsWith('mono') ? 'Monoambiente' : p.dormitorios],
+    ['BAÑOS', p.banos], ['SUPERFICIE', num(p.metros) ? num(p.metros) + ' m²' : ''], ['BARRIO', p.barrio]].filter(f => f[1]);
+  const otras = props.filter(o => o !== p && !cerrada(o)).slice(0, 3);
+  prop.innerHTML = `
+    <section class="p-hero">
+      <div class="bg" style="background-image:${esc(cssUrl(fs[0] || ''))}"></div>
+      <a class="back" href="#propiedades">${I.left}Propiedades</a>
+      <div class="wrap">
+        ${norm(p.estado) === 'reservada' || cerrada(p) ? tagDe(p) : ''}
+        <h1 class="display" tabindex="-1">${esc(p.titulo)}</h1>
+        <div class="facts">${facts.map(([k, v]) => `<div><small>${k}</small><b>${esc(v)}</b></div>`).join('')}</div>
+        ${fs.length ? `<button type="button" class="btn" data-full style="margin-top:1.6rem">${I.expand}${fs.length > 1 ? `Ver las ${fs.length} fotos` : 'Ver la foto'}</button>` : ''}
+      </div>
+    </section>
+    ${fs.length ? `<section style="padding-bottom:0"><div class="wrap">
+      <div class="viewer">
+        <img class="main" src="${esc(fs[0])}" alt="${esc(p.titulo)} – foto 1" draggable="false">
+        ${fs.length > 1 ? `<button type="button" class="pnav prev" data-dir="-1" aria-label="Foto anterior">${I.left}</button>
+        <button type="button" class="pnav next" data-dir="1" aria-label="Foto siguiente">${I.right}</button>
+        <span class="chip pcount">1 / ${fs.length}</span>` : ''}
+        <button type="button" class="chip" data-full>${I.expand}Pantalla completa</button>
+      </div>
+      ${thumbs(fs)}
+    </div></section>` : ''}
+    ${desc.length ? `<section><div class="wrap split"><h2 class="h2">${esc(lugar(p).replace(' · ', ' en ') || p.titulo)}.</h2><div class="desc">${desc.map(t => `<p>${esc(t)}</p>`).join('')}</div></div></section>` : ''}
+    ${am.length ? `<section><div class="wrap split"><h2 class="h2">Comodidades.</h2><ul class="amen">${am.map(a => `<li>${amenIcon(a)}${esc(a)}</li>`).join('')}</ul></div></section>` : ''}
+    ${p.plano ? `<section style="padding-top:0"><div class="wrap split"><h2 class="h2">El plano.</h2><div class="plan"><img src="${esc(foto(p.plano))}" alt="Plano de ${esc(p.titulo)}" loading="lazy"></div></div></section>` : ''}
+    ${cerrada(p) ? '' : `<section class="book" style="padding-top:0"><div class="wrap">
+      <h2 class="h2">Elegí un momento para verla.</h2>
+      <p class="lead">Elegí día y horario, y María te confirma la visita por WhatsApp.</p>
+      <div class="cal" id="cal"></div>
+    </div></section>`}
+    ${otras.length ? `<section style="padding-top:0"><div class="wrap"><div class="head"><h2 class="h2">Otras propiedades.</h2></div><div class="grid">${otras.map(card).join('')}</div></div></section>` : ''}`;
+  home.hidden = true; prop.hidden = false;
+  document.title = `${p.titulo} · María Márquez Propiedades`;
+  jumpTop();
+  prop.querySelector('h1').focus({preventScroll: true});
+  setPhotos(fs, p.titulo);
+  const v = prop.querySelector('.viewer'); if (v) swipe(v);
+  if (!cerrada(p)) booking(p);
+  reveal(prop);
+}
+function showHome(anchor) {
+  const wasProp = !prop.hidden;
+  prop.hidden = true; home.hidden = false; prop.innerHTML = '';
+  if (lb.open) closeLb();
+  document.title = 'María Márquez Propiedades';
+  lenis?.resize();
+  if (anchor) scrollToEl(anchor, true);
+  else if (wasProp) { scrollTo(0, homeY); lenis?.scrollTo(homeY, {immediate: true, force: true}); }
+}
+
+// Fotos: flechas, miniaturas para elegir, pantalla completa, teclado y deslizar con el dedo.
+const lb = document.getElementById('lb');
+let shots = [], cur = 0, shotsTitle = '';
+const thumbs = fs => fs.length > 1 ? `<div class="thumbs" role="group" aria-label="Elegí una foto">${fs.map((u, i) => `<button type="button" data-i="${i}" aria-pressed="${!i}" aria-label="Ver foto ${i + 1}"><img src="${esc(u)}" alt="" loading="lazy"></button>`).join('')}</div>` : '';
+function setPhotos(fs, title) { shots = fs; cur = 0; shotsTitle = title; }
+function setPhoto(i) {
+  if (!shots.length) return;
+  cur = (i + shots.length) % shots.length;
+  document.querySelectorAll('#prop .main, #lb .main').forEach(m => {
+    if (m.getAttribute('src') === shots[cur]) return;
+    m.classList.add('loading');
+    m.onload = m.onerror = () => m.classList.remove('loading');
+    m.src = shots[cur];
+    m.alt = `${shotsTitle} – foto ${cur + 1}`;
+  });
+  document.querySelectorAll('.pcount').forEach(c => c.textContent = `${cur + 1} / ${shots.length}`);
+  document.querySelectorAll('.thumbs').forEach(row => row.querySelectorAll('button').forEach(b => {
+    const on = +b.dataset.i === cur;
+    b.setAttribute('aria-pressed', on);
+    if (on) row.scrollTo({left: b.offsetLeft - row.clientWidth / 2 + b.clientWidth / 2, behavior: calm ? 'instant' : 'smooth'});
+  }));
+  [cur + 1, cur - 1].forEach(j => { new Image().src = shots[(j + shots.length) % shots.length]; }); // precarga las vecinas
+}
+function openLb() {
+  if (!shots.length) return;
+  lb.innerHTML = `
+    <div class="top"><b>${esc(shotsTitle)}</b><button type="button" class="x" aria-label="Cerrar">${I.close}</button></div>
+    <div class="box">
+      <img class="main" src="${esc(shots[cur])}" alt="${esc(shotsTitle)} – foto ${cur + 1}" draggable="false">
+      ${shots.length > 1 ? `<button type="button" class="pnav prev" data-dir="-1" aria-label="Foto anterior">${I.left}</button>
+      <button type="button" class="pnav next" data-dir="1" aria-label="Foto siguiente">${I.right}</button>
+      <span class="chip pcount">${cur + 1} / ${shots.length}</span>` : ''}
+    </div>
+    ${thumbs(shots)}`;
+  lb.showModal();
+  lenis?.stop();
+  setPhoto(cur);
+  swipe(lb.querySelector('.box'));
+}
+function closeLb() { lb.close(); lenis?.start(); } // el evento 'close' llega tarde en algunos navegadores
+lb.addEventListener('close', () => lenis?.start());
+lb.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') track('cambiar_foto', {propiedad: shotsTitle, como: 'teclado'});
+  if (e.key === 'ArrowRight') setPhoto(cur + 1);
+  else if (e.key === 'ArrowLeft') setPhoto(cur - 1);
+  else if (e.key === 'Escape') lenis?.start();
+});
+let swiped = false;
+function swipe(el) {
+  let x0 = null;
+  el.addEventListener('pointerdown', e => { x0 = e.clientX; swiped = false; });
+  el.addEventListener('pointerup', e => {
+    if (x0 === null) return;
+    const dx = e.clientX - x0; x0 = null;
+    if (Math.abs(dx) > 40 && shots.length > 1) { swiped = true; track('cambiar_foto', {propiedad: shotsTitle, como: 'deslizar'}); setPhoto(cur + (dx < 0 ? 1 : -1)); }
+  });
+}
+document.addEventListener('click', e => {
+  const t = e.target;
+  if (t.closest('.pnav')) { track('cambiar_foto', {propiedad: shotsTitle, como: 'flecha'}); return setPhoto(cur + +t.closest('.pnav').dataset.dir); }
+  const th = t.closest('.thumbs button');
+  if (th) { track('cambiar_foto', {propiedad: shotsTitle, como: 'miniatura'}); return setPhoto(+th.dataset.i); }
+  if (t.closest('[data-full]') || (t.matches('#prop .viewer .main') && !swiped)) { track('ver_fotos_pantalla_completa', {propiedad: shotsTitle}); return openLb(); }
+  if (t.closest('#lb .x') || t === lb) closeLb();
+  swiped = false;
+});
+
+// Agendar visita: calendario + horarios -> mensaje de WhatsApp con día y hora.
+function booking(p) {
+  const box = document.getElementById('cal');
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const last = new Date(today); last.setDate(last.getDate() + DIAS_ADELANTE);
+  const st = {month: new Date(today.getFullYear(), today.getMonth(), 1), date: null, time: null};
+  const cap = s => s[0].toUpperCase() + s.slice(1);
+  const fmtMonth = {format: d => cap(new Intl.DateTimeFormat('es-UY', {month: 'long'}).format(d)) + ' ' + d.getFullYear()};
+  const fmtDay = new Intl.DateTimeFormat('es-UY', {weekday: 'long', day: 'numeric', month: 'long'});
+  const iso = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  const libre = d => d >= today && d <= last && !SIN_VISITAS.includes(d.getDay());
+  function slotOk(t) {
+    if (!st.date || st.date.getTime() !== today.getTime()) return true;
+    const [h, m] = t.split(':').map(Number), now = new Date();
+    return h * 60 + m > now.getHours() * 60 + now.getMinutes() + 120; // hoy: con 2 horas de margen
+  }
+  function draw() {
+    const y = st.month.getFullYear(), mo = st.month.getMonth();
+    const first = (new Date(y, mo, 1).getDay() + 6) % 7, total = new Date(y, mo + 1, 0).getDate();
+    const prevOk = new Date(y, mo, 0) >= today, nextOk = new Date(y, mo + 1, 1) <= last;
+    let days = ['L', 'M', 'M', 'J', 'V', 'S', 'D'].map(d => `<span class="dow" aria-hidden="true">${d}</span>`).join('') + '<span></span>'.repeat(first);
+    for (let d = 1; d <= total; d++) {
+      const dt = new Date(y, mo, d);
+      days += `<button type="button" data-d="${iso(dt)}"${libre(dt) ? '' : ' disabled'}${dt.getTime() === today.getTime() ? ' class="today"' : ''} aria-pressed="${st.date?.getTime() === dt.getTime()}" aria-label="${fmtDay.format(dt)}">${d}</button>`;
+    }
+    const msg = st.date && st.time ? `Hola María, quiero coordinar una visita a "${p.titulo}"${p.barrio ? ` (${p.barrio})` : ''} el ${fmtDay.format(st.date)} a las ${st.time}.` : '';
+    box.innerHTML = `
+      <div>
+        <div class="cal-head">
+          <button type="button" data-m="-1" aria-label="Mes anterior"${prevOk ? '' : ' disabled'}>${I.left}</button>
+          <b aria-live="polite">${fmtMonth.format(st.month)}</b>
+          <button type="button" data-m="1" aria-label="Mes siguiente"${nextOk ? '' : ' disabled'}>${I.right}</button>
+        </div>
+        <div class="days">${days}</div>
+      </div>
+      <div class="slots">
+        ${st.date ? `<h3>${cap(fmtDay.format(st.date))}</h3>
+          <ul>${SLOTS.map(t => `<li><button type="button" data-t="${t}" aria-pressed="${st.time === t}"${slotOk(t) ? '' : ' disabled'}>${t}</button></li>`).join('')}</ul>`
+        : '<h3>Elegí un día</h3><p class="hint">Los días en gris no tienen visitas disponibles.</p>'}
+        <button type="button" class="btn" data-go${msg ? '' : ' disabled'}>${I.wa}Pedir visita por WhatsApp</button>
+        <p class="note">La visita queda confirmada cuando María te responde.</p>
+      </div>`;
+    box.dataset.msg = msg;
+  }
+  box.onclick = e => {
+    const b = e.target.closest('button');
+    if (!b || b.disabled) return;
+    if (b.dataset.m) st.month = new Date(st.month.getFullYear(), st.month.getMonth() + +b.dataset.m, 1);
+    else if (b.dataset.d) { const [y, m, d] = b.dataset.d.split('-').map(Number); st.date = new Date(y, m - 1, d); st.time = null; }
+    else if (b.dataset.t) st.time = b.dataset.t;
+    else if ('go' in b.dataset) { track('pedir_visita', {propiedad: p.titulo, dia: iso(st.date), hora: st.time}); return pedirVisita(box.dataset.msg); }
+    draw();
+    box.querySelector(b.dataset.d ? `[data-d="${b.dataset.d}"]` : b.dataset.t ? `[data-t="${b.dataset.t}"]` : `[data-m="${b.dataset.m}"]`)?.focus();
+  };
+  draw();
+}
+function pedirVisita(msg) {
+  if (waNumber) { window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener'); return; }
+  // sin WhatsApp cargado: se completa el formulario de contacto
+  const f = document.getElementById('contact-form');
+  f.motivo.value = 'Visitar una propiedad';
+  f.mensaje.value = msg;
+  showHome(document.getElementById('contacto'));
+  history.pushState(null, '', '#contacto');
+  setTimeout(() => f.nombre.focus({preventScroll: true}), 400);
+}
+
+function route() {
+  const m = location.hash.match(/^#\/propiedad\/(.+)$/);
+  const p = m && props.find(x => x.slug === decodeURIComponent(m[1]));
+  const wasProp = !prop.hidden;
+  if (p) showProp(p);
+  else if (wasProp) showHome();
+  if (p) { pageView(p.titulo, `/propiedad/${p.slug}`); track('ver_propiedad', {propiedad: p.titulo, barrio: p.barrio || '', operacion: p.operacion || ''}); }
+  else if (!route.done || wasProp) pageView('Inicio', '/');
+  route.done = true;
+}
+window.addEventListener('hashchange', route);
+
+// ----- scroll suave (Lenis): solo con mouse/trackpad; en celulares queda el scroll nativo -----
+let lenis = null;
+window.addEventListener('DOMContentLoaded', () => {
+  if (!window.Lenis || calm || !matchMedia('(pointer: fine)').matches) return;
+  lenis = new Lenis({lerp: 0.12});
+  const raf = t => { lenis.raf(t); requestAnimationFrame(raf); };
+  requestAnimationFrame(raf);
+});
+const headerH = () => document.getElementById('site').offsetHeight;
+function scrollToEl(el, instant) {
+  const top = el.id === 'inicio' ? 0 : el.getBoundingClientRect().top + scrollY - headerH();
+  if (lenis) { lenis.resize(); lenis.scrollTo(top, {immediate: !!instant, force: true}); }
+  else scrollTo({top, behavior: instant || calm ? 'instant' : 'smooth'});
+}
+function jumpTop() { scrollTo(0, 0); lenis?.resize(); lenis?.scrollTo(0, {immediate: true, force: true}); }
+// Links internos (#contacto, #propiedades...): si estás en una propiedad, vuelve al inicio y baja a esa parte.
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href^="#"]');
+  if (!a || a.getAttribute('href').startsWith('#/')) return;
+  const el = document.querySelector(a.getAttribute('href'));
+  if (!el) return;
+  e.preventDefault();
+  closeMenu();
+  if (!home.contains(el)) return;
+  if (!prop.hidden) { history.pushState(null, '', a.getAttribute('href')); showHome(el); pageView('Inicio', '/'); }
+  else scrollToEl(el);
+});
+
+document.addEventListener('click', e => {
+  const a = e.target.closest('a');
+  if (!a) return;
+  if (a.matches('.wa')) track('click_whatsapp', {desde: prop.hidden ? 'inicio' : 'propiedad'});
+  else if (a.matches('.pick')) track('click_destacada_portada', {propiedad: a.querySelector('b').textContent});
+  else if (a.matches('.btn') && a.getAttribute('href') === '#contacto') track('click_contacto', {boton: a.textContent.trim()});
+}, true);
+
+// ----- encabezado y menú -----
+const site = document.getElementById('site'), menuBtn = document.querySelector('.menu-btn'), menu = document.getElementById('menu');
+const solid = () => site.classList.toggle('solid', scrollY > 40 || menu.classList.contains('open'));
+addEventListener('scroll', solid, {passive: true});
+function closeMenu() { menu.classList.remove('open'); menuBtn.setAttribute('aria-expanded', false); solid(); }
+menuBtn.addEventListener('click', () => { const o = menu.classList.toggle('open'); menuBtn.setAttribute('aria-expanded', o); solid(); });
+
+document.getElementById('contact-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const f = e.target;
+  f.querySelector('.ok')?.remove();
+  if (!f.nombre.value.trim() || !f.tel.value.trim()) { (f.nombre.value.trim() ? f.tel : f.nombre).focus(); return; }
+  track('enviar_formulario', {motivo: f.motivo.value});
+  // shortcut: demo sin backend; en producción conectar a email (Formspree, etc.) o WhatsApp
+  f.insertAdjacentHTML('beforeend', '<p class="ok" role="status">¡Gracias! Te contactamos a la brevedad. (Demo: este formulario todavía no envía)</p>');
+  f.reset();
+});
+
+// ----- carga de datos -----
+function slugs() {
+  const seen = {};
+  props.forEach(p => {
+    let s = norm(p.titulo).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'propiedad';
+    seen[s] = (seen[s] || 0) + 1;
+    p.slug = seen[s] > 1 ? `${s}-${seen[s]}` : s;
+  });
+}
+function start() { slugs(); buildFilters(); buildPicks(); render(); route(); }
+(async () => {
+  if (!SHEET_ID) { props = demo; start(); return; }
+  loadTab('Datos').then(applyDatos).catch(console.error); // si falla, quedan los datos escritos en la página
+  try { props = await loadTab('Propiedades'); }
+  catch (e) {
+    console.error(e);
+    grid.innerHTML = '<div class="empty">No pudimos cargar las propiedades en este momento. <a href="#contacto">Escribinos</a> y te pasamos las disponibles.</div>';
+    return;
+  }
+  props = props.filter(p => p.titulo && norm(p.estado) !== 'oculta');
+  start();
+})();
+solid();
+</script>
+</body>
+</html>
