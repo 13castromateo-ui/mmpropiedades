@@ -120,8 +120,6 @@
   .feats svg{width:16px;height:16px;stroke:var(--green-dark)}
   .tag{position:absolute;top:14px;left:14px;z-index:2;font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .7rem;border-radius:999px;background:rgba(15,16,15,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff}
   .tag.res{background:var(--amber);color:var(--ink)}
-  .card.rise{animation:rise 650ms var(--ease-out) backwards;animation-delay:calc(var(--i,0) * 70ms)}
-  @keyframes rise{from{opacity:0;transform:translateY(18px)}}
   .empty{grid-column:1/-1;padding:3rem;text-align:center;color:var(--text-2);border:1px dashed var(--line-2);border-radius:16px}
   .empty a{color:var(--green-dark);font-weight:600}
 
@@ -307,7 +305,7 @@
   }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
-    .card.rise,.p-hero .bg{animation:none}
+    .p-hero .bg{animation:none}
     .layer{transform:none!important}
     .btn:active,.tabs button:active,.days button:active,.slots li button:active,.back:active,.wa:active{transform:none}
   }
@@ -470,7 +468,9 @@
   <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 2.5 1 3 .8 3.6.7.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.6 2.2 13.8 2.2 12 2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm8.3-18.1C18.1 1.5 15.1.2 12 .2 5.5.2.2 5.5.2 12c0 2.1.5 4.1 1.6 5.9L.1 24l6.3-1.6c1.7.9 3.7 1.4 5.6 1.4 6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.5-8.3z"/></svg>
 </a>
 
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js" defer></script>
 <script>
 // ===== CONFIGURACIÓN =====
 // ID de la planilla de Google de María: es la parte del link entre "/d/" y "/edit".
@@ -719,15 +719,31 @@ function buildPicks() {
   nav.addEventListener('focusout', e => { if (!nav.contains(e.relatedTarget)) show(-1); });
 }
 
-// Único movimiento de entrada: las tarjetas suben en cascada al entrar en pantalla.
-const io = !calm && 'IntersectionObserver' in window && new IntersectionObserver(entries => {
-  entries.filter(e => e.isIntersecting).forEach((e, i) => {
-    e.target.style.setProperty('--i', i);
-    e.target.classList.add('rise');
-    io.unobserve(e.target);
+// Movimiento de entrada (GSAP + ScrollTrigger): tarjetas, títulos y filas suben en cascada al entrar en pantalla.
+// Sin GSAP o con "reducir movimiento", todo se ve normal desde el principio.
+const anim = () => !calm && window.gsap && window.ScrollTrigger && (gsap.registerPlugin(ScrollTrigger), true);
+function reveal(root) {
+  if (!anim()) return;
+  ScrollTrigger.getAll().forEach(t => { if (!document.contains(t.trigger)) t.kill(); }); // de páginas que ya no están
+  const els = [...root.querySelectorAll('.card, .h2, .lead, .rows > li, .amen li, .info li, .facts, .cal, .portrait, .sell-photo, .viewer')]
+    .filter(el => !el.dataset.shown && !el.closest('.hero'));
+  els.forEach(el => { el.dataset.shown = 1; });
+  gsap.set(els, {autoAlpha: 0, y: 24});
+  ScrollTrigger.batch(els, {
+    start: 'top 92%', once: true,
+    onEnter: batch => gsap.to(batch, {autoAlpha: 1, y: 0, duration: .8, ease: 'expo.out', stagger: .07, overwrite: true, clearProps: 'transform'}),
   });
-}, {rootMargin: '0px 0px -8% 0px'});
-function reveal(root) { if (io) root.querySelectorAll('.card').forEach(c => io.observe(c)); }
+  ScrollTrigger.refresh();
+}
+// Portada: el título, el texto y las destacadas entran una vez, en orden.
+function intro() {
+  if (!anim()) return;
+  const hero = document.querySelector('.hero .wrap');
+  gsap.timeline({defaults: {ease: 'expo.out'}})
+    .from(hero.querySelector('.display'), {autoAlpha: 0, y: 40, duration: 1.1})
+    .from(hero.querySelector('.lead'), {autoAlpha: 0, y: 20, duration: .9}, '-=.8')
+    .from(hero.querySelectorAll('.pick'), {autoAlpha: 0, y: 16, duration: .7, stagger: .08}, '-=.6');
+}
 
 document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => {
   filters.op = b.dataset.op; document.querySelector('#search [name=op]').value = filters.op; track('filtrar_operacion', {operacion: filters.op || 'todas'}); render();
@@ -796,6 +812,7 @@ function showHome(anchor) {
   if (lb.open) closeLb();
   document.title = 'María Márquez Propiedades';
   lenis?.resize();
+  if (anim()) ScrollTrigger.refresh();
   if (anchor) scrollToEl(anchor, true);
   else if (wasProp) { scrollTo(0, homeY); lenis?.scrollTo(homeY, {immediate: true, force: true}); }
 }
@@ -951,8 +968,14 @@ let lenis = null;
 window.addEventListener('DOMContentLoaded', () => {
   if (!window.Lenis || calm || !matchMedia('(pointer: fine)').matches) return;
   lenis = new Lenis({lerp: 0.12});
-  const raf = t => { lenis.raf(t); requestAnimationFrame(raf); };
-  requestAnimationFrame(raf);
+  if (window.gsap && window.ScrollTrigger) { // un solo reloj: GSAP mueve a Lenis y ScrollTrigger lee su scroll
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(t => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+  } else {
+    const raf = t => { lenis.raf(t); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+  }
 });
 const headerH = () => document.getElementById('site').offsetHeight;
 function scrollToEl(el, instant) {
@@ -1009,7 +1032,12 @@ function slugs() {
     p.slug = seen[s] > 1 ? `${s}-${seen[s]}` : s;
   });
 }
-function start() { slugs(); buildFilters(); buildPicks(); render(); route(); }
+function start() {
+  if (document.readyState === 'loading') return addEventListener('DOMContentLoaded', start, {once: true}); // espera a GSAP y Lenis
+  slugs(); buildFilters(); buildPicks(); render(); route();
+  if (prop.hidden) intro();
+  reveal(home);
+}
 (async () => {
   if (!SHEET_ID) { props = demo; start(); return; }
   loadTab('Datos').then(applyDatos).catch(console.error); // si falla, quedan los datos escritos en la página
