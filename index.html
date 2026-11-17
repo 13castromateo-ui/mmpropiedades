@@ -6,6 +6,13 @@
 <title>María Márquez Propiedades</title>
 <meta name="description" content="Compra, venta, alquiler y tasación de propiedades con asesoramiento personal.">
 <meta name="theme-color" content="#ffffff">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M7SPVZ63');</script>
+<!-- End Google Tag Manager -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@600&display=swap" rel="stylesheet">
@@ -312,6 +319,9 @@
 </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M7SPVZ63" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -498,6 +508,7 @@ if (GA_ID) {
 }
 function track(name, params = {}) {
   (window.mmEventos ||= []).push([name, params]);
+  (window.dataLayer ||= []).push({event: 'mm_' + name, ...params}); // para usar como activador en Tag Manager
   if (GA_ID) gtag('event', name, params);
 }
 function pageView(title, path) {
