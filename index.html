@@ -506,6 +506,8 @@ let SLOTS = ['10:00', '11:30', '15:00', '16:30', '18:00'];
 const SIN_VISITAS = [0]; // 0 = domingo
 const DIAS_ADELANTE = 60;
 let DURACION = 60; // minutos por visita; se puede cambiar en la planilla (Datos > Duración de visita (minutos))
+// Duración por tipo de propiedad: filas "Duración Casa (minutos)", "Duración Apartamento (minutos)"... en Datos.
+let DURACION_TIPO = {casa: 45, apartamento: 25};
 // Calendario de Google de María: pegá acá la URL del programa del calendario (termina en /exec). Vacío = sin conexión.
 const CALENDAR_URL = '';
 // Estadísticas: pegá acá el ID de medición de Google Analytics 4 (empieza con "G-"). Vacío = sin estadísticas.
@@ -606,6 +608,8 @@ function applyDatos(rows) {
   });
   if (d.fotoportada) document.querySelector('.layer.base').style.backgroundImage = cssUrl(sized(foto(d.fotoportada), 1600));
   if (parseInt(d.duraciondevisitaminutos) > 0) DURACION = parseInt(d.duraciondevisitaminutos);
+  const porTipo = Object.entries(d).filter(([k, v]) => /^duracion.+minutos$/.test(k) && k !== 'duraciondevisitaminutos' && parseInt(v) > 0);
+  if (porTipo.length) DURACION_TIPO = Object.fromEntries(porTipo.map(([k, v]) => [k.slice(8, -7), parseInt(v)]));
   if (d.horariosdevisita) { const s = d.horariosdevisita.split(/[,;\n]+/).map(t => t.trim()).filter(t => /^\d{1,2}:\d{2}$/.test(t)); if (s.length) SLOTS = s; }
   if (d.whatsapp) {
     let n = d.whatsapp.replace(/\D/g, '');
@@ -954,7 +958,8 @@ function booking(p) {
   const fmtDay = new Intl.DateTimeFormat('es-UY', {weekday: 'long', day: 'numeric', month: 'long'});
   const iso = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   const slots = () => agenda?.slots || SLOTS;
-  const dur = () => agenda?.dur || DURACION;
+  const tipo = key(p.tipo);
+  const dur = () => agenda ? (agenda.durs?.[tipo] || agenda.dur) : (DURACION_TIPO[tipo] || DURACION);
   const sinVisitas = () => agenda?.sinVisitas || SIN_VISITAS;
   const last = () => { const l = new Date(today); l.setDate(l.getDate() + (agenda?.dias || DIAS_ADELANTE)); return l; };
   const busy = () => (agenda?.busy || []).map(([a, b]) => [wall(...a.split(' ')), wall(...b.split(' '))]);
@@ -1020,7 +1025,7 @@ function booking(p) {
     st.error = ''; st.sending = true; draw();
     let res;
     try {
-      const r = await fetch(CALENDAR_URL, {method: 'POST', body: JSON.stringify({propiedad: p.titulo + (p.barrio ? ` (${p.barrio})` : ''), nombre: st.nombre, telefono: st.telefono, fecha: iso(st.date), hora: st.time})});
+      const r = await fetch(CALENDAR_URL, {method: 'POST', body: JSON.stringify({propiedad: p.titulo + (p.barrio ? ` (${p.barrio})` : ''), tipo: p.tipo || '', nombre: st.nombre, telefono: st.telefono, fecha: iso(st.date), hora: st.time})});
       res = await r.json();
     } catch (e) { res = {ok: false, error: 'red'}; }
     st.sending = false;
