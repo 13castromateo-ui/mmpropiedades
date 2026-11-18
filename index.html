@@ -16,7 +16,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://images.unsplash.com">
 <link rel="preconnect" href="https://docs.google.com">
 <link rel="preconnect" href="https://lh3.googleusercontent.com">
-<link rel="preload" as="image" href="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=70&auto=format" fetchpriority="high">
+<link rel="preload" as="image" href="portada.webp" type="image/webp" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@600&display=swap" rel="stylesheet">
@@ -88,7 +88,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
          transition:opacity 700ms ease,transform 1400ms var(--ease-out),filter 700ms ease}
   .layer.on{opacity:1;transform:none}
   .hero.lit .layer.on{filter:brightness(1) saturate(1.06)}
-  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(15,16,15,.96) 0%,rgba(15,16,15,.55) 32%,rgba(15,16,15,.1) 62%,rgba(15,16,15,.35) 100%);pointer-events:none}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(15,16,15,.92) 0%,rgba(15,16,15,.4) 30%,rgba(15,16,15,0) 52%),linear-gradient(to right,rgba(15,16,15,.6) 0%,rgba(15,16,15,0) 55%),linear-gradient(to bottom,rgba(15,16,15,.35) 0%,rgba(15,16,15,0) 18%);pointer-events:none}
+  /* foto de portada: el cartel de María en el jardín; se ve con su luz natural, sin oscurecer */
+  .layer.base{background-position:70% center;filter:none}
+  .hero .display{max-width:11ch}
+  .hero .lead{max-width:40ch}
   .hero .wrap{position:relative;z-index:1;width:100%;padding-top:calc(var(--header) + 40px)}
   .hero,.p-hero{color:#fff}
   .hero .lead{color:rgba(255,255,255,.85)}
@@ -303,6 +307,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .site .btn{display:none}
     .menu-btn{display:block}
     .logo svg{height:44px;width:159px}
+    /* celular: la foto arriba (con el cartel entero) y el texto abajo */
+    .hero{background:#151815}
+    .layer.base{background-size:auto 64%;background-position:84% 0}
+    .hero::after{background:linear-gradient(to top,#151815 0%,#151815 36%,rgba(21,24,21,0) 50%),linear-gradient(to bottom,rgba(21,24,21,.4) 0%,rgba(21,24,21,0) 14%)}
     .picks{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--gutter);scrollbar-width:none;margin-inline:calc(-1 * var(--gutter));padding-inline:var(--gutter);border-top:0;gap:12px}
     .picks::-webkit-scrollbar{display:none}
     .pick{flex:0 0 72%;scroll-snap-align:start;border-top:1px solid rgba(255,255,255,.28);padding-right:0}
@@ -368,7 +376,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <main id="home">
   <section class="hero" id="inicio">
-    <div class="layer base on" style="background-image:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=70&auto=format')"></div>
+    <div class="layer base on" style="background-image:image-set(url('portada.webp') type('image/webp'), url('portada.jpg') type('image/jpeg'))" role="img" aria-label="Cartel de María Márquez, Vende, clavado en el jardín de una casa"></div>
     <div class="wrap">
       <h1 class="display" data-campo="tituloportada">Tu próximo hogar, con quien conoce el camino.</h1>
       <p class="lead" data-campo="textoportada">Compra, venta y alquiler de propiedades con asesoramiento personal en cada paso, desde la primera visita hasta la firma.</p>
