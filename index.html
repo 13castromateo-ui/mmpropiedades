@@ -13,6 +13,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-M7SPVZ63');</script>
 <!-- End Google Tag Manager -->
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="preconnect" href="https://docs.google.com">
+<link rel="preconnect" href="https://lh3.googleusercontent.com">
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=70&auto=format" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@600&display=swap" rel="stylesheet">
@@ -175,7 +179,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   footer{border-top:1px solid var(--line);padding-block:48px 36px;color:var(--text-2);font-size:.88rem}
   footer .in{display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap}
-  footer nav{display:flex;gap:1.5rem;flex-wrap:wrap}
+  footer nav{display:flex;gap:1.5rem;flex-wrap:wrap;align-items:center}
+  footer .social{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);color:var(--text);transition:background-color 200ms ease,color 200ms ease,border-color 200ms ease}
+  footer .social svg{width:20px;height:20px;stroke:currentColor}
+  .info a.ig{text-decoration:underline;text-underline-offset:.2em}
   footer .logo{color:var(--text)}
   footer .logo svg{height:40px;width:145px}
   footer .copy{margin-top:2rem;font-size:.8rem}
@@ -261,6 +268,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .slots .hint{color:var(--text-2);font-size:.92rem}
   .slots .btn{width:100%;margin-top:1.2rem}
   .slots .note{color:var(--text-2);font-size:.8rem;margin:.7rem 0 0}
+  .slots li button small{font-size:.75rem;font-weight:500;color:var(--text-2);margin-left:.4rem}
+  .slots .who{display:grid;gap:.7rem;margin-top:1rem}
+  .slots .who label{display:grid;gap:.3rem;font-size:.82rem;font-weight:600;color:var(--text-2)}
+  .slots .err{margin:.9rem 0 0;color:#a3261b;font-size:.9rem;font-weight:600}
+  .slots a.btn{width:100%;margin-top:1.2rem}
 
   /* hover solo con mouse: en celulares queda pegado después de tocar */
   @media (hover:hover) and (pointer:fine){
@@ -273,6 +285,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .days button:not([disabled]):not([aria-pressed="true"]):hover{background:#e2e2dc}
     .slots li button:not([disabled]):hover{border-color:var(--line-2)}
     footer a:hover{color:var(--text)}
+    footer .social:hover{background:var(--text);border-color:var(--text);color:#fff}
   }
 
   @media (max-width:980px){
@@ -355,7 +368,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <main id="home">
   <section class="hero" id="inicio">
-    <div class="layer base on" style="background-image:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=2000&q=75')"></div>
+    <div class="layer base on" style="background-image:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=70&auto=format')"></div>
     <div class="wrap">
       <h1 class="display" data-campo="tituloportada">Tu próximo hogar, con quien conoce el camino.</h1>
       <p class="lead" data-campo="textoportada">Compra, venta y alquiler de propiedades con asesoramiento personal en cada paso, desde la primera visita hasta la firma.</p>
@@ -445,6 +458,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><p style="margin:0"><small>Teléfono / WhatsApp</small><span data-campo="telefono">099 000 000</span></p></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg><p style="margin:0"><small>Email</small><span data-campo="email">contacto@ejemplo.com.uy</span></p></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg><p style="margin:0"><small>Oficina</small><span data-campo="direccion">Dirección de ejemplo, Montevideo</span></p></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg><p style="margin:0"><small>Instagram</small><a class="ig" href="https://www.instagram.com/mmpropiedades/" target="_blank" rel="noopener">@mmpropiedades</a></p></li>
         </ul>
       </div>
       <form class="contact" id="contact-form" novalidate>
@@ -468,7 +482,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="wrap">
     <div class="in">
       <a href="#inicio" class="logo" aria-label="Inicio"><svg><use href="#mm-logo"/></svg></a>
-      <nav aria-label="Pie"><a href="#propiedades">Propiedades</a><a href="#vender">Vender</a><a href="#nosotros">Nosotros</a><a href="#contacto">Contacto</a></nav>
+      <nav aria-label="Pie"><a href="#propiedades">Propiedades</a><a href="#vender">Vender</a><a href="#nosotros">Nosotros</a><a href="#contacto">Contacto</a><a class="ig social" href="https://www.instagram.com/mmpropiedades/" target="_blank" rel="noopener" aria-label="Instagram de María Márquez Propiedades"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg></a></nav>
     </div>
     <div class="copy">© 2026 María Márquez Propiedades. Todos los derechos reservados.<br>Este sitio usa Google Analytics, que guarda cookies, para contar visitas y saber qué propiedades interesan más. No usamos esos datos para identificarte.</div>
   </div>
@@ -491,6 +505,9 @@ const SHEET_ID = '1lEecdw6e3UhwyNUrOm7dQmHzTXBBbF6UxtWwIusNc3w';
 let SLOTS = ['10:00', '11:30', '15:00', '16:30', '18:00'];
 const SIN_VISITAS = [0]; // 0 = domingo
 const DIAS_ADELANTE = 60;
+let DURACION = 60; // minutos por visita; se puede cambiar en la planilla (Datos > Duración de visita (minutos))
+// Calendario de Google de María: pegá acá la URL del programa del calendario (termina en /exec). Vacío = sin conexión.
+const CALENDAR_URL = '';
 // Estadísticas: pegá acá el ID de medición de Google Analytics 4 (empieza con "G-"). Vacío = sin estadísticas.
 const GA_ID = 'G-E20RTE13VD';
 // =========================
@@ -566,6 +583,12 @@ function foto(u) {
   const m = String(u).match(/\/d\/([\w-]{20,})|[?&]id=([\w-]{20,})/);
   return m ? `https://lh3.googleusercontent.com/d/${m[1] || m[2]}=w1600` : u;
 }
+// Pide cada foto al tamaño en que se muestra (Unsplash y Google Drive aceptan el ancho en el link).
+function sized(u, w) {
+  if (/images\.unsplash\.com/.test(u)) { const x = new URL(u); x.searchParams.set('w', w); x.searchParams.set('q', '70'); x.searchParams.set('auto', 'format'); return x.href; }
+  if (/lh3\.googleusercontent\.com\/d\//.test(u)) return u.replace(/=w\d+$/, '') + '=w' + w;
+  return u;
+}
 // Columna "Fotos": varios links separados por enter, espacio o coma. La primera es la portada.
 const fotosDe = p => String(p.fotos || p.foto || '').split(/[\s,]+/).filter(u => /^https?:\/\/|\.(jpe?g|png|webp)$/i.test(u)).map(foto);
 const cssUrl = u => `url("${String(u).replace(/["\\\n]/g, '')}")`;
@@ -578,10 +601,11 @@ function applyDatos(rows) {
     const v = d[el.dataset.campo];
     if (!v) { const row = el.closest('.info > li'); if (row) row.hidden = true; return; } // contacto vacío: se oculta la fila
     if (el.dataset.campo === 'sobremi') el.innerHTML = v.split(/\n+/).map(p => `<p>${esc(p)}</p>`).join('');
-    else if (el.dataset.campo === 'fotodemaria') el.innerHTML = `<img src="${esc(foto(v))}" alt="María Márquez">`;
+    else if (el.dataset.campo === 'fotodemaria') el.innerHTML = `<img src="${esc(sized(foto(v), 900))}" alt="María Márquez" onerror="this.parentNode.textContent='MM'">`; // si el link no es una imagen, vuelve a "MM"
     else el.textContent = v;
   });
-  if (d.fotoportada) document.querySelector('.layer.base').style.backgroundImage = cssUrl(foto(d.fotoportada));
+  if (d.fotoportada) document.querySelector('.layer.base').style.backgroundImage = cssUrl(sized(foto(d.fotoportada), 1600));
+  if (parseInt(d.duraciondevisitaminutos) > 0) DURACION = parseInt(d.duraciondevisitaminutos);
   if (d.horariosdevisita) { const s = d.horariosdevisita.split(/[,;\n]+/).map(t => t.trim()).filter(t => /^\d{1,2}:\d{2}$/.test(t)); if (s.length) SLOTS = s; }
   if (d.whatsapp) {
     let n = d.whatsapp.replace(/\D/g, '');
@@ -647,12 +671,16 @@ const featsDe = p => `<div class="feats">
 function gal(fs, alt) {
   if (!fs.length) return '';
   const many = fs.length > 1;
-  return `<div class="gal"><div class="slides">${fs.map((u, i) => `<img src="${esc(u)}" alt="${esc(alt)}${many ? ` – foto ${i + 1}` : ''}" loading="lazy" onerror="this.remove()">`).join('')}</div>${many ? `
+  return `<div class="gal"><div class="slides">${fs.map((u, i) => `<img ${i ? 'data-src' : 'src'}="${esc(u)}" alt="${esc(alt)}${many ? ` – foto ${i + 1}` : ''}" loading="lazy" onerror="this.remove()">`).join('')}</div>${many ? `
     <button type="button" class="nav prev" aria-label="Foto anterior">${I.left}</button>
     <button type="button" class="nav next" aria-label="Foto siguiente">${I.right}</button>
     <span class="count">1 / ${fs.length}</span>` : ''}</div>`;
 }
+// Las fotos de atrás de cada tarjeta se descargan recién cuando alguien empieza a mirarlas.
+const hydrate = g => g?.querySelectorAll('img[data-src]').forEach(im => { im.src = im.dataset.src; im.removeAttribute('data-src'); });
+['pointerover', 'touchstart', 'focusin'].forEach(t => document.addEventListener(t, e => hydrate(e.target.closest?.('.gal')), {passive: true}));
 function slide(btn) {
+  hydrate(btn.closest('.gal'));
   const s = btn.closest('.gal').querySelector('.slides'), w = s.clientWidth, n = s.children.length;
   const i = Math.round(s.scrollLeft / w), dir = btn.classList.contains('next') ? 1 : -1;
   s.scrollTo({left: ((i + dir + n) % n) * w, behavior: calm ? 'instant' : 'smooth'});
@@ -667,7 +695,7 @@ document.addEventListener('click', e => { const nav = e.target.closest('.gal .na
 
 const card = p => `
   <article class="card${cerrada(p) ? ' done' : ''}">
-    <div class="ph">${gal(fotosDe(p), p.titulo)}${tagDe(p)}</div>
+    <div class="ph">${gal(fotosDe(p).map(u => sized(u, 800)), p.titulo)}${tagDe(p)}</div>
     <div class="body">
       <div class="top"><h3><a href="#/propiedad/${p.slug}">${esc(p.titulo)}</a></h3>${precioDe(p)}</div>
       <div class="meta">${esc(lugar(p))}</div>
@@ -712,11 +740,13 @@ function buildPicks() {
   const layers = picks.map(p => {
     const l = document.createElement('div');
     l.className = 'layer';
-    l.style.backgroundImage = cssUrl(fotosDe(p)[0]);
+    l.dataset.bg = cssUrl(sized(fotosDe(p)[0], 1600));
     base.after(l);
     return l;
   });
+  const paint = l => { if (l.dataset.bg) { l.style.backgroundImage = l.dataset.bg; delete l.dataset.bg; } };
   const show = i => {
+    if (layers[i]) paint(layers[i]);
     base.classList.toggle('on', i < 0);
     layers.forEach((l, j) => l.classList.toggle('on', j === i));
     nav.querySelectorAll('.pick').forEach((a, j) => a.classList.toggle('on', j === i));
@@ -727,6 +757,8 @@ function buildPicks() {
     a.addEventListener('focus', () => show(i));
   });
   nav.addEventListener('pointerleave', () => show(-1));
+  // con mouse, se adelantan en segundo plano cuando la página ya terminó de cargar
+  if (matchMedia('(hover: hover)').matches) (window.requestIdleCallback || setTimeout)(() => layers.forEach(paint), {timeout: 4000});
   nav.addEventListener('focusout', e => { if (!nav.contains(e.relatedTarget)) show(-1); });
 }
 
@@ -780,7 +812,7 @@ function showProp(p) {
   const otras = props.filter(o => o !== p && !cerrada(o)).slice(0, 3);
   prop.innerHTML = `
     <section class="p-hero">
-      <div class="bg" style="background-image:${esc(cssUrl(fs[0] || ''))}"></div>
+      <div class="bg" style="background-image:${esc(cssUrl(fs[0] ? sized(fs[0], 1600) : ''))}"></div>
       <a class="back" href="#propiedades">${I.left}Propiedades</a>
       <div class="wrap">
         ${norm(p.estado) === 'reservada' || cerrada(p) ? tagDe(p) : ''}
@@ -791,7 +823,7 @@ function showProp(p) {
     </section>
     ${fs.length ? `<section style="padding-bottom:0"><div class="wrap">
       <div class="viewer">
-        <img class="main" src="${esc(fs[0])}" alt="${esc(p.titulo)} – foto 1" draggable="false">
+        <img class="main" src="${esc(sized(fs[0], 1600))}" alt="${esc(p.titulo)} – foto 1" draggable="false">
         ${fs.length > 1 ? `<button type="button" class="pnav prev" data-dir="-1" aria-label="Foto anterior">${I.left}</button>
         <button type="button" class="pnav next" data-dir="1" aria-label="Foto siguiente">${I.right}</button>
         <span class="chip pcount">1 / ${fs.length}</span>` : ''}
@@ -831,8 +863,8 @@ function showHome(anchor) {
 // Fotos: flechas, miniaturas para elegir, pantalla completa, teclado y deslizar con el dedo.
 const lb = document.getElementById('lb');
 let shots = [], cur = 0, shotsTitle = '';
-const thumbs = fs => fs.length > 1 ? `<div class="thumbs" role="group" aria-label="Elegí una foto">${fs.map((u, i) => `<button type="button" data-i="${i}" aria-pressed="${!i}" aria-label="Ver foto ${i + 1}"><img src="${esc(u)}" alt="" loading="lazy"></button>`).join('')}</div>` : '';
-function setPhotos(fs, title) { shots = fs; cur = 0; shotsTitle = title; }
+const thumbs = fs => fs.length > 1 ? `<div class="thumbs" role="group" aria-label="Elegí una foto">${fs.map((u, i) => `<button type="button" data-i="${i}" aria-pressed="${!i}" aria-label="Ver foto ${i + 1}"><img src="${esc(sized(u, 300))}" alt="" loading="lazy"></button>`).join('')}</div>` : '';
+function setPhotos(fs, title) { shots = fs.map(u => sized(u, 1600)); cur = 0; shotsTitle = title; }
 function setPhoto(i) {
   if (!shots.length) return;
   cur = (i + shots.length) % shots.length;
@@ -895,32 +927,79 @@ document.addEventListener('click', e => {
   swiped = false;
 });
 
-// Agendar visita: calendario + horarios -> mensaje de WhatsApp con día y hora.
+// Agendar visita: calendario + horarios.
+// Con CALENDAR_URL: muestra solo los horarios libres del Google Calendar de María y crea el evento al pedir la visita.
+// Sin CALENDAR_URL: arma el mensaje de WhatsApp con día y hora (como antes).
+let agenda = null; // {dur, slots, sinVisitas, dias, busy: [[ini, fin]]} que devuelve el calendario
+async function loadAgenda(force) {
+  if (!CALENDAR_URL) return null;
+  if (agenda && !force && Date.now() - agenda.at < 60e3) return agenda;
+  try {
+    const r = await fetch(CALENDAR_URL + (CALENDAR_URL.includes('?') ? '&' : '?') + '_=' + Date.now());
+    const j = await r.json();
+    if (!j.ok) throw new Error('calendario');
+    agenda = {...j, at: Date.now()};
+  } catch (e) { console.error(e); agenda = null; }
+  return agenda;
+}
+// Hora "de pared" de Uruguay como número comparable: mismo criterio en la web y en el calendario.
+const wall = (fecha, hora) => { const [y, m, d] = fecha.split('-').map(Number), [h, mi] = hora.split(':').map(Number); return Date.UTC(y, m - 1, d, h, mi); };
+
 function booking(p) {
   const box = document.getElementById('cal');
   const today = new Date(); today.setHours(0, 0, 0, 0);
-  const last = new Date(today); last.setDate(last.getDate() + DIAS_ADELANTE);
-  const st = {month: new Date(today.getFullYear(), today.getMonth(), 1), date: null, time: null};
+  const st = {month: new Date(today.getFullYear(), today.getMonth(), 1), date: null, time: null, sending: false, done: false, error: '', loading: !!CALENDAR_URL};
   const cap = s => s[0].toUpperCase() + s.slice(1);
   const fmtMonth = {format: d => cap(new Intl.DateTimeFormat('es-UY', {month: 'long'}).format(d)) + ' ' + d.getFullYear()};
   const fmtDay = new Intl.DateTimeFormat('es-UY', {weekday: 'long', day: 'numeric', month: 'long'});
   const iso = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-  const libre = d => d >= today && d <= last && !SIN_VISITAS.includes(d.getDay());
-  function slotOk(t) {
-    if (!st.date || st.date.getTime() !== today.getTime()) return true;
-    const [h, m] = t.split(':').map(Number), now = new Date();
-    return h * 60 + m > now.getHours() * 60 + now.getMinutes() + 120; // hoy: con 2 horas de margen
+  const slots = () => agenda?.slots || SLOTS;
+  const dur = () => agenda?.dur || DURACION;
+  const sinVisitas = () => agenda?.sinVisitas || SIN_VISITAS;
+  const last = () => { const l = new Date(today); l.setDate(l.getDate() + (agenda?.dias || DIAS_ADELANTE)); return l; };
+  const busy = () => (agenda?.busy || []).map(([a, b]) => [wall(...a.split(' ')), wall(...b.split(' '))]);
+  function slotState(d, t) { // 'ok' | 'pasado' | 'ocupado'
+    const s = wall(iso(d), t), e = s + dur() * 6e4;
+    if (d.getTime() === today.getTime()) {
+      const now = new Date(), [h, m] = t.split(':').map(Number);
+      if (h * 60 + m <= now.getHours() * 60 + now.getMinutes() + 120) return 'pasado'; // hoy: con 2 horas de margen
+    }
+    return busy().some(([a, b]) => s < b && e > a) ? 'ocupado' : 'ok';
   }
+  const libre = d => d >= today && d <= last() && !sinVisitas().includes(d.getDay()) && slots().some(t => slotState(d, t) === 'ok');
+  const msg = () => st.date && st.time ? `Hola María, quiero coordinar una visita a "${p.titulo}"${p.barrio ? ` (${p.barrio})` : ''} el ${fmtDay.format(st.date)} a las ${st.time}.` : '';
+
   function draw() {
     const y = st.month.getFullYear(), mo = st.month.getMonth();
     const first = (new Date(y, mo, 1).getDay() + 6) % 7, total = new Date(y, mo + 1, 0).getDate();
-    const prevOk = new Date(y, mo, 0) >= today, nextOk = new Date(y, mo + 1, 1) <= last;
+    const prevOk = new Date(y, mo, 0) >= today, nextOk = new Date(y, mo + 1, 1) <= last();
     let days = ['L', 'M', 'M', 'J', 'V', 'S', 'D'].map(d => `<span class="dow" aria-hidden="true">${d}</span>`).join('') + '<span></span>'.repeat(first);
     for (let d = 1; d <= total; d++) {
       const dt = new Date(y, mo, d);
       days += `<button type="button" data-d="${iso(dt)}"${libre(dt) ? '' : ' disabled'}${dt.getTime() === today.getTime() ? ' class="today"' : ''} aria-pressed="${st.date?.getTime() === dt.getTime()}" aria-label="${fmtDay.format(dt)}">${d}</button>`;
     }
-    const msg = st.date && st.time ? `Hola María, quiero coordinar una visita a "${p.titulo}"${p.barrio ? ` (${p.barrio})` : ''} el ${fmtDay.format(st.date)} a las ${st.time}.` : '';
+    let right;
+    if (st.done) {
+      right = `<h3>¡Listo! Tu visita quedó agendada.</h3>
+        <p class="hint">${cap(fmtDay.format(st.date))} a las ${st.time}. María te va a escribir para confirmarla.</p>
+        ${waNumber ? `<a class="btn" href="https://wa.me/${waNumber}?text=${encodeURIComponent(msg())}" target="_blank" rel="noopener">${I.wa}Escribirle a María</a>` : ''}`;
+    } else if (!st.date) {
+      right = `<h3>Elegí un día</h3><p class="hint">${st.loading ? 'Cargando los horarios disponibles…' : 'Los días en gris no tienen horarios libres.'}</p>`;
+    } else {
+      const list = slots().map(t => {
+        const s = slotState(st.date, t);
+        return `<li><button type="button" data-t="${t}" aria-pressed="${st.time === t}"${s === 'ok' ? '' : ' disabled'}>${t}${s === 'ocupado' ? ' <small>Ocupado</small>' : ''}</button></li>`;
+      }).join('');
+      const form = CALENDAR_URL && agenda && st.time ? `
+        <form class="who" novalidate>
+          <label>Tu nombre<input name="nombre" autocomplete="name" required maxlength="60" value="${esc(st.nombre || '')}"></label>
+          <label>Tu teléfono<input name="telefono" type="tel" autocomplete="tel" required maxlength="20" value="${esc(st.telefono || '')}"></label>
+        </form>` : '';
+      right = `<h3>${cap(fmtDay.format(st.date))}</h3><ul>${list}</ul>${form}
+        ${st.error ? `<p class="err" role="alert">${st.error}</p>` : ''}
+        <button type="button" class="btn" data-go${st.time && !st.sending ? '' : ' disabled'}>${st.sending ? 'Agendando…' : `${I.wa}${CALENDAR_URL && agenda ? 'Pedir visita' : 'Pedir visita por WhatsApp'}`}</button>
+        <p class="note">${CALENDAR_URL && agenda ? 'Queda agendada en el calendario de María y ella te confirma por WhatsApp.' : 'La visita queda confirmada cuando María te responde.'}</p>`;
+    }
     box.innerHTML = `
       <div>
         <div class="cal-head">
@@ -930,26 +1009,54 @@ function booking(p) {
         </div>
         <div class="days">${days}</div>
       </div>
-      <div class="slots">
-        ${st.date ? `<h3>${cap(fmtDay.format(st.date))}</h3>
-          <ul>${SLOTS.map(t => `<li><button type="button" data-t="${t}" aria-pressed="${st.time === t}"${slotOk(t) ? '' : ' disabled'}>${t}</button></li>`).join('')}</ul>`
-        : '<h3>Elegí un día</h3><p class="hint">Los días en gris no tienen visitas disponibles.</p>'}
-        <button type="button" class="btn" data-go${msg ? '' : ' disabled'}>${I.wa}Pedir visita por WhatsApp</button>
-        <p class="note">La visita queda confirmada cuando María te responde.</p>
-      </div>`;
-    box.dataset.msg = msg;
+      <div class="slots" aria-live="polite">${right}</div>`;
   }
+
+  async function enviar() {
+    const f = box.querySelector('form.who');
+    st.nombre = f.nombre.value.trim(); st.telefono = f.telefono.value.trim();
+    if (st.nombre.length < 2) { st.error = 'Escribí tu nombre.'; draw(); return box.querySelector('[name=nombre]').focus(); }
+    if (st.telefono.replace(/\D/g, '').length < 6) { st.error = 'Escribí un teléfono para que María te pueda confirmar.'; draw(); return box.querySelector('[name=telefono]').focus(); }
+    st.error = ''; st.sending = true; draw();
+    let res;
+    try {
+      const r = await fetch(CALENDAR_URL, {method: 'POST', body: JSON.stringify({propiedad: p.titulo + (p.barrio ? ` (${p.barrio})` : ''), nombre: st.nombre, telefono: st.telefono, fecha: iso(st.date), hora: st.time})});
+      res = await r.json();
+    } catch (e) { res = {ok: false, error: 'red'}; }
+    st.sending = false;
+    if (res.ok) {
+      st.done = true;
+      track('pedir_visita', {propiedad: p.titulo, dia: iso(st.date), hora: st.time, agendada: true});
+      loadAgenda(true);
+    } else if (res.error === 'ocupado' || res.error === 'horario') {
+      st.error = 'Ese horario se acaba de ocupar. Elegí otro, por favor.';
+      st.time = null;
+      await loadAgenda(true);
+    } else {
+      st.error = 'No pudimos agendar en este momento. Probá de nuevo o escribile a María por WhatsApp.';
+    }
+    draw();
+  }
+
   box.onclick = e => {
     const b = e.target.closest('button');
     if (!b || b.disabled) return;
     if (b.dataset.m) st.month = new Date(st.month.getFullYear(), st.month.getMonth() + +b.dataset.m, 1);
-    else if (b.dataset.d) { const [y, m, d] = b.dataset.d.split('-').map(Number); st.date = new Date(y, m - 1, d); st.time = null; }
-    else if (b.dataset.t) st.time = b.dataset.t;
-    else if ('go' in b.dataset) { track('pedir_visita', {propiedad: p.titulo, dia: iso(st.date), hora: st.time}); return pedirVisita(box.dataset.msg); }
+    else if (b.dataset.d) { const [y, m, d] = b.dataset.d.split('-').map(Number); st.date = new Date(y, m - 1, d); st.time = null; st.error = ''; }
+    else if (b.dataset.t) { st.time = b.dataset.t; st.error = ''; }
+    else if ('go' in b.dataset) {
+      if (CALENDAR_URL && agenda) return enviar();
+      track('pedir_visita', {propiedad: p.titulo, dia: iso(st.date), hora: st.time, agendada: false});
+      return pedirVisita(msg());
+    }
+    const keep = box.querySelector('form.who');
+    if (keep) { st.nombre = keep.nombre.value; st.telefono = keep.telefono.value; }
     draw();
     box.querySelector(b.dataset.d ? `[data-d="${b.dataset.d}"]` : b.dataset.t ? `[data-t="${b.dataset.t}"]` : `[data-m="${b.dataset.m}"]`)?.focus();
   };
+  box.addEventListener('submit', e => { e.preventDefault(); enviar(); });
   draw();
+  if (CALENDAR_URL) loadAgenda().then(() => { st.loading = false; if (document.body.contains(box)) draw(); }); // si falla, sigue funcionando con WhatsApp
 }
 function pedirVisita(msg) {
   if (waNumber) { window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener'); return; }
@@ -1012,6 +1119,7 @@ document.addEventListener('click', e => {
   const a = e.target.closest('a');
   if (!a) return;
   if (a.matches('.wa')) track('click_whatsapp', {desde: prop.hidden ? 'inicio' : 'propiedad'});
+  else if (a.matches('.ig')) track('click_instagram', {desde: a.matches('.social') ? 'pie' : 'contacto'});
   else if (a.matches('.pick')) track('click_destacada_portada', {propiedad: a.querySelector('b').textContent});
   else if (a.matches('.btn') && a.getAttribute('href') === '#contacto') track('click_contacto', {boton: a.textContent.trim()});
 }, true);
@@ -1049,17 +1157,31 @@ function start() {
   if (prop.hidden) intro();
   reveal(home);
 }
+const store = {
+  get: k => { try { return JSON.parse(localStorage.getItem('mm_' + k)); } catch (e) { return null; } },
+  set: (k, v) => { try { localStorage.setItem('mm_' + k, JSON.stringify(v)); } catch (e) {} },
+};
+const visibles = rows => rows.filter(p => p.titulo && norm(p.estado) !== 'oculta');
 (async () => {
   if (!SHEET_ID) { props = demo; start(); return; }
-  loadTab('Datos').then(applyDatos).catch(console.error); // si falla, quedan los datos escritos en la página
-  try { props = await loadTab('Propiedades'); }
+  // Se muestra al instante lo que se vio la última vez (si tiene menos de 1 día) y después se actualiza con la planilla.
+  const cache = store.get('cache');
+  const fresh = cache && Date.now() - cache.at < 864e5;
+  if (fresh) { applyDatos(cache.datos || []); props = visibles(cache.props); start(); }
+  const datos = loadTab('Datos').catch(e => { console.error(e); return null; });
+  let rows;
+  try { rows = await loadTab('Propiedades'); }
   catch (e) {
     console.error(e);
-    grid.innerHTML = '<div class="empty">No pudimos cargar las propiedades en este momento. <a href="#contacto">Escribinos</a> y te pasamos las disponibles.</div>';
+    if (!fresh) grid.innerHTML = '<div class="empty">No pudimos cargar las propiedades en este momento. <a href="#contacto">Escribinos</a> y te pasamos las disponibles.</div>';
     return;
   }
-  props = props.filter(p => p.titulo && norm(p.estado) !== 'oculta');
-  start();
+  const d = await datos;
+  if (d) applyDatos(d);
+  store.set('cache', {at: Date.now(), props: rows, datos: d || cache?.datos || []});
+  if (fresh && JSON.stringify(rows) === JSON.stringify(cache.props)) return; // no cambió nada
+  props = visibles(rows);
+  if (fresh) { slugs(); buildFilters(); buildPicks(); render(); route(); } else start();
 })();
 solid();
 </script>
