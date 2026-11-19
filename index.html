@@ -63,6 +63,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .btn svg{width:18px;height:18px}
   .btn svg[fill="none"]{stroke:currentColor}
   h1[tabindex="-1"]:focus{outline:none}
+  /* títulos: flecha normal, sin cursor de texto ni selección */
+  h1,h2,h3,.lead,.pick,.facts{cursor:default;-webkit-user-select:none;user-select:none}
+  h3 a,a.pick{cursor:pointer}
 
   /* encabezado: transparente sobre la foto, sólido al bajar */
   .site{position:fixed;inset:0 0 auto;z-index:40;height:var(--header);border-bottom:1px solid transparent;transition:background-color 250ms ease,border-color 250ms ease}
@@ -73,9 +76,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .site .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
   .logo{display:block;color:#fff;transition:color 250ms ease}
   .logo svg{display:block;height:56px;width:203px}
+  .site nav{margin-left:auto}
   .site ul{display:flex;gap:2rem;list-style:none;margin:0;padding:0;font-size:.92rem;font-weight:500}
   .site ul a{color:rgba(255,255,255,.78);transition:color 200ms ease}
   .site .btn{padding:.65rem 1.2rem;font-size:.88rem}
+  .lang{display:flex;gap:2px;padding:3px;border-radius:999px;border:1px solid rgba(255,255,255,.3);margin-left:auto}
+  .lang button{border:0;background:none;color:rgba(255,255,255,.8);font:600 .75rem 'Montserrat',sans-serif;letter-spacing:.04em;padding:.35rem .55rem;border-radius:999px;cursor:pointer;transition:background-color 150ms ease,color 150ms ease}
+  .lang button[aria-pressed="true"]{background:#fff;color:#262726}
+  .site.solid .lang{border-color:var(--line-2)}
+  .site.solid .lang button{color:var(--text-2)}
+  .site.solid .lang button[aria-pressed="true"]{background:var(--text);color:#fff}
   .menu-btn{display:none;background:none;border:0;padding:.5rem;cursor:pointer}
   .menu-btn span{display:block;width:24px;height:2px;background:#fff;margin:5px 0;transition:transform 200ms var(--ease-out),opacity 150ms ease}
   .menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -92,6 +102,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   /* foto de portada: el cartel de María en el jardín; se ve con su luz natural, sin oscurecer */
   .layer.base{background-position:70% center;filter:none}
   .hero .display{max-width:11ch}
+  html[lang=en] .hero .display{font-size:clamp(2.4rem,5.6vw,5rem);max-width:13ch}
   .hero .lead{max-width:40ch}
   .hero .wrap{position:relative;z-index:1;width:100%;padding-top:calc(var(--header) + 40px)}
   .hero,.p-hero{color:#fff}
@@ -305,6 +316,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .site ul.open{display:flex}
     .site ul a{display:block;padding:.9rem 0;font-size:1.1rem;border-bottom:1px solid var(--line)}
     .site .btn{display:none}
+    .lang button{padding:.3rem .45rem;font-size:.7rem}
     .menu-btn{display:block}
     .logo svg{height:44px;width:159px}
     /* celular: la foto arriba (con el cartel entero) y el texto abajo */
@@ -369,6 +381,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <li><a href="#contacto">Contacto</a></li>
       </ul>
     </nav>
+    <div class="lang" role="group" aria-label="Idioma">
+      <button type="button" data-lang="es" aria-pressed="true" title="Español">ES</button>
+      <button type="button" data-lang="en" aria-pressed="false" title="English">EN</button>
+      <button type="button" data-lang="pt" aria-pressed="false" title="Português">PT</button>
+    </div>
     <a href="#contacto" class="btn">Tasá tu propiedad</a>
     <button class="menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
   </div>
@@ -433,11 +450,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div>
         <h2 class="h2">Vendé sin complicarte.</h2>
         <p class="lead">Nos ocupamos de todo para que vos solo tengas que decidir.</p>
-        <a href="#contacto" class="btn">Pedí tu tasación gratis</a>
+        <a href="#contacto" class="btn">Pedí tu tasación</a>
         <div class="sell-photo"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000&q=75" alt="Fachada de una casa moderna" loading="lazy"></div>
       </div>
       <ol class="rows num">
-        <li><h3>Tasación sin costo</h3><p>Visitamos tu propiedad y te damos un valor realista de mercado.</p></li>
+        <li><h3>Tasación profesional</h3><p>Visitamos tu propiedad y te damos un valor realista de mercado.</p></li>
         <li><h3>Fotos y publicación</h3><p>Fotos profesionales y publicación en los portales más visitados.</p></li>
         <li><h3>Visitas filtradas</h3><p>Solo mostramos a interesados que pueden concretar la compra.</p></li>
         <li><h3>Firma segura</h3><p>Coordinamos con escribanía hasta la entrega de llaves.</p></li>
@@ -522,6 +539,206 @@ const CALENDAR_URL = '';
 const GA_ID = 'G-E20RTE13VD';
 // =========================
 
+// ----- idiomas: español (original), inglés y portugués -----
+// Cada texto en español tiene su traducción [inglés, portugués]. Lo que no está acá se muestra en español.
+const LANGS = ['es', 'en', 'pt'];
+const LOCALE = {es: 'es-UY', en: 'en-US', pt: 'pt-BR'};
+const D = {
+  // encabezado y menú
+  'Propiedades': ['Properties', 'Imóveis'],
+  'Vender': ['Sell', 'Vender'],
+  'Nosotros': ['About', 'Sobre nós'],
+  'Contacto': ['Contact', 'Contato'],
+  'Tasá tu propiedad': ['Get a valuation', 'Avalie seu imóvel'],
+  'Abrir menú': ['Open menu', 'Abrir menu'],
+  'María Márquez Propiedades, inicio': ['María Márquez Properties, home', 'María Márquez Imóveis, início'],
+  'Principal': ['Main', 'Principal'],
+  'Idioma': ['Language', 'Idioma'],
+  // portada y buscador
+  'Tu próximo hogar, con quien conoce el camino.': ['Your next home, with someone who knows the way.', 'Seu próximo lar, com quem conhece o caminho.'],
+  'Compra, venta y alquiler de propiedades con asesoramiento personal en cada paso, desde la primera visita hasta la firma.': ['Buying, selling and renting property with personal guidance at every step, from the first visit to the signing.', 'Compra, venda e aluguel de imóveis com assessoria pessoal em cada etapa, da primeira visita à assinatura.'],
+  'Cartel de María Márquez, Vende, clavado en el jardín de una casa': ['María Márquez "For sale" sign in the front yard of a house', 'Placa "Vende-se" de María Márquez no jardim de uma casa'],
+  'Propiedades destacadas': ['Featured properties', 'Imóveis em destaque'],
+  'OPERACIÓN': ['LISTING', 'OPERAÇÃO'],
+  'TIPO': ['TYPE', 'TIPO'],
+  'BARRIO': ['NEIGHBORHOOD', 'BAIRRO'],
+  'Todas': ['All', 'Todas'],
+  'Todos': ['All', 'Todos'],
+  'Comprar': ['Buy', 'Comprar'],
+  'Alquilar': ['Rent', 'Alugar'],
+  'Buscar': ['Search', 'Buscar'],
+  // listado
+  'Propiedades disponibles.': ['Available properties.', 'Imóveis disponíveis.'],
+  'Filtrar por operación': ['Filter by listing type', 'Filtrar por operação'],
+  'Venta': ['For sale', 'Venda'],
+  'Alquiler': ['For rent', 'Aluguel'],
+  'Vendida': ['Sold', 'Vendido'],
+  'Alquilada': ['Rented', 'Alugado'],
+  'Reservada': ['Reserved', 'Reservado'],
+  'Consultar': ['Ask for price', 'Consultar'],
+  '/ mes': ['/ month', '/ mês'],
+  'Monoambiente': ['Studio', 'Studio'],
+  'dorm.': ['bed.', 'quartos'],
+  'baño': ['bath', 'banheiro'],
+  'baños': ['baths', 'banheiros'],
+  'foto': ['photo', 'foto'],
+  'Foto anterior': ['Previous photo', 'Foto anterior'],
+  'Foto siguiente': ['Next photo', 'Próxima foto'],
+  'Cargando propiedades…': ['Loading properties…', 'Carregando imóveis…'],
+  'No hay propiedades con esos filtros por ahora. <a href="#contacto">Avisame qué buscás</a> y te contacto cuando aparezca.': ['No properties match those filters right now. <a href="#contacto">Tell me what you are looking for</a> and I will let you know when one comes up.', 'Não há imóveis com esses filtros no momento. <a href="#contacto">Conte o que você procura</a> e eu aviso quando aparecer.'],
+  'No pudimos cargar las propiedades en este momento. <a href="#contacto">Escribinos</a> y te pasamos las disponibles.': ['We could not load the properties right now. <a href="#contacto">Write to us</a> and we will send you the available ones.', 'Não conseguimos carregar os imóveis agora. <a href="#contacto">Escreva para nós</a> e enviaremos os disponíveis.'],
+  // tipos de propiedad
+  'Casa': ['House', 'Casa'],
+  'Apartamento': ['Apartment', 'Apartamento'],
+  'Terreno': ['Land', 'Terreno'],
+  'Local': ['Commercial space', 'Loja'],
+  'Oficina': ['Office', 'Escritório'],
+  'Chacra': ['Farm', 'Chácara'],
+  'Galpón': ['Warehouse', 'Galpão'],
+  'en': ['in', 'em'],
+  // servicios
+  'Lo que hacemos.': ['What we do.', 'O que fazemos.'],
+  'Te acompañamos en cada paso, desde la tasación hasta la entrega de llaves.': ['We are with you every step of the way, from the valuation to handing over the keys.', 'Acompanhamos você em cada etapa, da avaliação à entrega das chaves.'],
+  'Valuación, fotos profesionales y difusión en los principales portales para vender al mejor precio.': ['Valuation, professional photos and listing on the main property portals to sell at the best price.', 'Avaliação, fotos profissionais e divulgação nos principais portais para vender pelo melhor preço.'],
+  'Buscamos inquilinos confiables, gestionamos garantías y te acompañamos durante todo el contrato.': ['We find reliable tenants, handle guarantees and support you throughout the lease.', 'Buscamos inquilinos confiáveis, cuidamos das garantias e acompanhamos você durante todo o contrato.'],
+  'Tasación': ['Valuation', 'Avaliação'],
+  'Sabé cuánto vale tu propiedad con una tasación basada en ventas reales de la zona.': ['Find out what your property is worth with a valuation based on real sales in the area.', 'Saiba quanto vale seu imóvel com uma avaliação baseada em vendas reais da região.'],
+  'Asesoramiento': ['Advice', 'Assessoria'],
+  'Te guiamos con trámites, documentación, créditos hipotecarios y coordinación con escribanía.': ['We guide you through paperwork, documents, mortgages and coordination with the notary.', 'Orientamos você com trâmites, documentação, financiamento e coordenação com o cartório.'],
+  // vender
+  'Vendé sin complicarte.': ['Sell without the hassle.', 'Venda sem complicação.'],
+  'Nos ocupamos de todo para que vos solo tengas que decidir.': ['We take care of everything so you only have to decide.', 'Cuidamos de tudo para que você só precise decidir.'],
+  'Pedí tu tasación': ['Request a valuation', 'Peça sua avaliação'],
+  'Fachada de una casa moderna': ['Front of a modern house', 'Fachada de uma casa moderna'],
+  'Tasación profesional': ['Professional valuation', 'Avaliação profissional'],
+  'Visitamos tu propiedad y te damos un valor realista de mercado.': ['We visit your property and give you a realistic market value.', 'Visitamos seu imóvel e damos um valor de mercado realista.'],
+  'Fotos y publicación': ['Photos and listing', 'Fotos e anúncio'],
+  'Fotos profesionales y publicación en los portales más visitados.': ['Professional photos and listing on the most visited portals.', 'Fotos profissionais e anúncio nos portais mais visitados.'],
+  'Visitas filtradas': ['Screened viewings', 'Visitas qualificadas'],
+  'Solo mostramos a interesados que pueden concretar la compra.': ['We only show the property to buyers who can actually close.', 'Só mostramos para interessados que podem concretizar a compra.'],
+  'Firma segura': ['Safe closing', 'Assinatura segura'],
+  'Coordinamos con escribanía hasta la entrega de llaves.': ['We coordinate with the notary until the keys are handed over.', 'Coordenamos com o cartório até a entrega das chaves.'],
+  // sobre mí
+  'Hola, soy María Márquez.': ['Hi, I am María Márquez.', 'Olá, sou María Márquez.'],
+  'Hablemos': ["Let's talk", 'Vamos conversar'],
+  'Acompaño a familias e inversores a comprar, vender y alquilar con información clara y un trato cercano.': ['I help families and investors buy, sell and rent with clear information and a personal approach.', 'Acompanho famílias e investidores na compra, venda e aluguel com informação clara e atendimento próximo.'],
+  // contacto
+  'Hablemos.': ["Let's talk.", 'Vamos conversar.'],
+  'Escribime y te respondo en el día.': ['Write to me and I will reply the same day.', 'Escreva e eu respondo no mesmo dia.'],
+  'Teléfono / WhatsApp': ['Phone / WhatsApp', 'Telefone / WhatsApp'],
+  'Oficina': ['Office', 'Escritório'],
+  'Nombre': ['Name', 'Nome'],
+  'Teléfono': ['Phone', 'Telefone'],
+  'Me interesa': ["I'm interested in", 'Tenho interesse em'],
+  'Vender mi propiedad': ['Selling my property', 'Vender meu imóvel'],
+  'Tasar mi propiedad': ['Valuing my property', 'Avaliar meu imóvel'],
+  'Visitar una propiedad': ['Visiting a property', 'Visitar um imóvel'],
+  'Otro': ['Other', 'Outro'],
+  'Mensaje': ['Message', 'Mensagem'],
+  'Contame qué estás buscando': ['Tell me what you are looking for', 'Conte o que você procura'],
+  'Enviar consulta': ['Send message', 'Enviar mensagem'],
+  '¡Gracias! Te contactamos a la brevedad. (Demo: este formulario todavía no envía)': ['Thank you! We will get back to you shortly. (Demo: this form does not send yet)', 'Obrigado! Entraremos em contato em breve. (Demo: este formulário ainda não envia)'],
+  // pie
+  'Inicio': ['Home', 'Início'],
+  'Pie': ['Footer', 'Rodapé'],
+  'Instagram de María Márquez Propiedades': ['María Márquez Properties on Instagram', 'Instagram de María Márquez Imóveis'],
+  '© 2026 María Márquez Propiedades. Todos los derechos reservados.': ['© 2026 María Márquez Properties. All rights reserved.', '© 2026 María Márquez Imóveis. Todos os direitos reservados.'],
+  'Este sitio usa Google Analytics, que guarda cookies, para contar visitas y saber qué propiedades interesan más. No usamos esos datos para identificarte.': ['This site uses Google Analytics, which stores cookies, to count visits and learn which properties people like most. We do not use this data to identify you.', 'Este site usa o Google Analytics, que guarda cookies, para contar visitas e saber quais imóveis interessam mais. Não usamos esses dados para identificar você.'],
+  'Escribir por WhatsApp': ['Message on WhatsApp', 'Escrever pelo WhatsApp'],
+  // página de una propiedad
+  'PRECIO': ['PRICE', 'PREÇO'],
+  'DORMITORIOS': ['BEDROOMS', 'QUARTOS'],
+  'BAÑOS': ['BATHROOMS', 'BANHEIROS'],
+  'SUPERFICIE': ['AREA', 'ÁREA'],
+  'Ver las {n} fotos': ['See all {n} photos', 'Ver as {n} fotos'],
+  'Ver la foto': ['See the photo', 'Ver a foto'],
+  'Pantalla completa': ['Full screen', 'Tela cheia'],
+  'Fotos en pantalla completa': ['Full-screen photos', 'Fotos em tela cheia'],
+  'Cerrar': ['Close', 'Fechar'],
+  'Elegí una foto': ['Choose a photo', 'Escolha uma foto'],
+  'Ver foto {n}': ['See photo {n}', 'Ver foto {n}'],
+  'Comodidades.': ['Amenities.', 'Comodidades.'],
+  'El plano.': ['Floor plan.', 'Planta.'],
+  'Plano de': ['Floor plan of', 'Planta de'],
+  'Elegí un momento para verla.': ['Pick a time to see it.', 'Escolha um horário para visitar.'],
+  'Elegí día y horario, y María te confirma la visita por WhatsApp.': ['Choose a day and time, and María will confirm the viewing on WhatsApp.', 'Escolha dia e horário, e María confirma a visita pelo WhatsApp.'],
+  'Otras propiedades.': ['Other properties.', 'Outros imóveis.'],
+  // calendario de visitas
+  'Mes anterior': ['Previous month', 'Mês anterior'],
+  'Mes siguiente': ['Next month', 'Próximo mês'],
+  '¡Listo! Tu visita quedó agendada.': ['Done! Your viewing is booked.', 'Pronto! Sua visita foi agendada.'],
+  'a las': ['at', 'às'],
+  'María te va a escribir para confirmarla.': ['María will message you to confirm it.', 'María vai escrever para confirmar.'],
+  'Escribirle a María': ['Message María', 'Escrever para María'],
+  'Elegí un día': ['Choose a day', 'Escolha um dia'],
+  'Cargando los horarios disponibles…': ['Loading available times…', 'Carregando horários disponíveis…'],
+  'Los días en gris no tienen horarios libres.': ['Grey days have no free times.', 'Os dias em cinza não têm horários livres.'],
+  'Ocupado': ['Taken', 'Ocupado'],
+  'Tu nombre': ['Your name', 'Seu nome'],
+  'Tu teléfono': ['Your phone', 'Seu telefone'],
+  'Agendando…': ['Booking…', 'Agendando…'],
+  'Pedir visita': ['Request viewing', 'Pedir visita'],
+  'Pedir visita por WhatsApp': ['Request viewing on WhatsApp', 'Pedir visita pelo WhatsApp'],
+  'Queda agendada en el calendario de María y ella te confirma por WhatsApp.': ["It goes straight into María's calendar and she confirms on WhatsApp.", 'Fica agendada no calendário de María e ela confirma pelo WhatsApp.'],
+  'La visita queda confirmada cuando María te responde.': ['The viewing is confirmed once María replies.', 'A visita fica confirmada quando María responder.'],
+  'Escribí tu nombre.': ['Please enter your name.', 'Escreva seu nome.'],
+  'Escribí un teléfono para que María te pueda confirmar.': ['Please enter a phone number so María can confirm.', 'Escreva um telefone para que María possa confirmar.'],
+  'Ese horario se acaba de ocupar. Elegí otro, por favor.': ['That time was just taken. Please choose another one.', 'Esse horário acabou de ser ocupado. Escolha outro, por favor.'],
+  'No pudimos agendar en este momento. Probá de nuevo o escribile a María por WhatsApp.': ['We could not book right now. Please try again or message María on WhatsApp.', 'Não conseguimos agendar agora. Tente de novo ou escreva para María pelo WhatsApp.'],
+};
+const DOW = {es: ['L', 'M', 'M', 'J', 'V', 'S', 'D'], en: ['M', 'T', 'W', 'T', 'F', 'S', 'S'], pt: ['S', 'T', 'Q', 'Q', 'S', 'S', 'D']};
+const pickLang = () => {
+  const q = new URLSearchParams(location.search).get('lang');
+  if (LANGS.includes(q)) return q;
+  try { const s = localStorage.getItem('mm_lang'); if (LANGS.includes(s)) return s; } catch (e) {}
+  const n = (navigator.language || 'es').slice(0, 2);
+  return n === 'en' || n === 'pt' ? n : 'es';
+};
+let LANG = pickLang();
+function t(s, vars) {
+  let out = LANG === 'es' ? s : (D[s]?.[LANGS.indexOf(LANG) - 1] ?? s);
+  if (vars) for (const [k, v] of Object.entries(vars)) out = out.replace(`{${k}}`, v);
+  return out;
+}
+// Texto de la propiedad en el idioma elegido: columnas opcionales "Título EN", "Descripción PT", "Amenities EN"...
+const L = (p, campo) => (LANG !== 'es' && p[campo + LANG]) || p[campo] || '';
+
+// Traduce los textos fijos de la página (los que no arma el código), guardando el original en español.
+const ORIG = new WeakMap(), ORIG_ATTR = new WeakMap();
+const SKIP = '#grid, #prop, #lb, #picks, #cal, [data-campo], script, style, svg, .lang';
+function translatePage() {
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode: n => n.nodeValue.trim() && !n.parentElement.closest(SKIP) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT,
+  });
+  for (let n; (n = walker.nextNode());) {
+    if (!ORIG.has(n)) ORIG.set(n, n.nodeValue);
+    const o = ORIG.get(n), core = o.trim();
+    n.nodeValue = o.replace(core, t(core));
+  }
+  document.querySelectorAll('[aria-label], [placeholder], img[alt]').forEach(el => {
+    if (el.closest(SKIP) && !el.matches('#lb')) return;
+    if (!ORIG_ATTR.has(el)) ORIG_ATTR.set(el, {aria: el.getAttribute('aria-label'), ph: el.getAttribute('placeholder'), alt: el.getAttribute('alt')});
+    const o = ORIG_ATTR.get(el);
+    if (o.aria) el.setAttribute('aria-label', t(o.aria));
+    if (o.ph) el.setAttribute('placeholder', t(o.ph));
+    if (o.alt) el.setAttribute('alt', t(o.alt));
+  });
+}
+function setLang(l, user) {
+  if (!LANGS.includes(l)) return;
+  LANG = l;
+  document.documentElement.lang = l;
+  if (user) { try { localStorage.setItem('mm_lang', l); } catch (e) {} track('cambiar_idioma', {idioma: l}); }
+  document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === l));
+  translatePage();
+  applyCampos();
+  if (props.length) { const op = filters; buildFilters(); document.querySelector('#search [name=tipo]').value = op.tipo; document.querySelector('#search [name=zona]').value = op.zona; buildPicks(); render();
+    const m = location.hash.match(/^#\/propiedad\/(.+)$/), p = m && props.find(x => x.slug === decodeURIComponent(m[1]));
+    if (p && !prop.hidden) showProp(p); // sin volver a contar la visita
+  }
+}
+
+
 // ----- estadísticas -----
 // Cada acción importante manda un "evento" a Google Analytics. También quedan en window.mmEventos para revisarlos.
 if (GA_ID) {
@@ -604,16 +821,40 @@ const fotosDe = p => String(p.fotos || p.foto || '').split(/[\s,]+/).filter(u =>
 const cssUrl = u => `url("${String(u).replace(/["\\\n]/g, '')}")`;
 
 let waNumber = '';
-function applyDatos(rows) {
-  const d = {};
-  rows.forEach(r => { if (r.campo && r.valor) d[key(r.campo)] = r.valor; });
+let DATOS = {};
+const DEF = {}; // textos originales de la página, por si la planilla no trae el campo
+document.querySelectorAll('[data-campo]').forEach(el => { DEF[el.dataset.campo] = el.innerText.trim(); });
+const TRADUCIBLES = ['tituloportada', 'textoportada', 'sobremi'];
+// En inglés o portugués usa las filas "Título portada EN", "Sobre mí PT"... Si no están, la traducción del texto original.
+function campo(c) {
+  const d = DATOS, es = d[c];
+  if (!TRADUCIBLES.includes(c)) return es;
+  if (LANG === 'es') return es || DEF[c];
+  if (d[c + LANG]) return d[c + LANG];
+  const sinPunto = s => norm(s).replace(/[.\s]+$/, '');
+  if (!es || sinPunto(es) === sinPunto(DEF[c])) return t(DEF[c]);
+  const parrafos = es.split(/\n+/);
+  return parrafos.map(x => t(x.trim())).join('\n');
+}
+function applyCampos() {
   document.querySelectorAll('[data-campo]').forEach(el => {
-    const v = d[el.dataset.campo];
+    const c = el.dataset.campo;
+    if (!(c in DATOS) && TRADUCIBLES.includes(c)) { el.textContent = c === 'sobremi' ? '' : t(DEF[c]); if (c === 'sobremi') el.innerHTML = DEF_HTML.sobremi.split(/\n/).map(x => `<p>${esc(t(x.trim()))}</p>`).join(''); return; }
+    if (!(c in DATOS)) return;
+    const v = campo(c);
     if (!v) { const row = el.closest('.info > li'); if (row) row.hidden = true; return; } // contacto vacío: se oculta la fila
     if (el.dataset.campo === 'sobremi') el.innerHTML = v.split(/\n+/).map(p => `<p>${esc(p)}</p>`).join('');
     else if (el.dataset.campo === 'fotodemaria') el.innerHTML = `<img src="${esc(sized(foto(v), 900))}" alt="María Márquez" onerror="this.parentNode.textContent='MM'">`; // si el link no es una imagen, vuelve a "MM"
     else el.textContent = v;
   });
+}
+const DEF_HTML = {sobremi: [...document.querySelectorAll('[data-campo=sobremi] p')].map(x => x.textContent.trim()).join('\n')};
+function applyDatos(rows) {
+  const d = {};
+  rows.forEach(r => { if (r.campo && r.valor) d[key(r.campo)] = r.valor; });
+  DATOS = d;
+  document.querySelectorAll('[data-campo]').forEach(el => { if (!(el.dataset.campo in d)) DATOS[el.dataset.campo] = ''; });
+  applyCampos();
   if (d.fotoportada) document.querySelector('.layer.base').style.backgroundImage = cssUrl(sized(foto(d.fotoportada), 1600));
   if (parseInt(d.duraciondevisitaminutos) > 0) DURACION = parseInt(d.duraciondevisitaminutos);
   const porTipo = Object.entries(d).filter(([k, v]) => /^duracion.+minutos$/.test(k) && k !== 'duraciondevisitaminutos' && parseInt(v) > 0);
@@ -660,32 +901,32 @@ const AMEN = [
   [/vista|al mar|rambla/, '<path d="M2 18h20"/><path d="M6 18a6 6 0 0 1 12 0"/><path d="M12 6V4M4.9 9.9 3.5 8.5M19.1 9.9l1.4-1.4"/>'],
 ];
 const amenIcon = a => icon((AMEN.find(([re]) => re.test(norm(a))) || [, '<path d="m5 12 5 5L20 7"/>'])[1]);
-const amenities = p => String(p.amenities || '').split(/[,;\n]+/).map(s => s.trim()).filter(Boolean);
+const amenities = p => String(L(p, 'amenities')).split(/[,;\n]+/).map(s => s.trim()).filter(Boolean);
 
 // ----- piezas de una propiedad -----
 const cerrada = p => ['vendida', 'alquilada'].includes(norm(p.estado));
 const alqDe = p => norm(p.operacion) === 'alquiler';
 const num = s => parseInt(s) || 0;
-const lugar = p => [p.tipo, p.barrio].filter(Boolean).join(' · ');
-const precioDe = p => `<span class="price">${esc(p.precio || 'Consultar')}${alqDe(p) && p.precio ? ' <small>/ mes</small>' : ''}</span>`;
+const lugar = p => [p.tipo && t(p.tipo), p.barrio].filter(Boolean).join(' · ');
+const precioDe = p => `<span class="price">${esc(p.precio || t('Consultar'))}${alqDe(p) && p.precio ? ` <small>${t('/ mes')}</small>` : ''}</span>`;
 function tagDe(p) {
-  if (cerrada(p)) return `<span class="tag">${alqDe(p) ? 'Alquilada' : 'Vendida'}</span>`;
-  if (norm(p.estado) === 'reservada') return '<span class="tag res">Reservada</span>';
-  return `<span class="tag">${alqDe(p) ? 'Alquiler' : 'Venta'}</span>`;
+  if (cerrada(p)) return `<span class="tag">${t(alqDe(p) ? 'Alquilada' : 'Vendida')}</span>`;
+  if (norm(p.estado) === 'reservada') return `<span class="tag res">${t('Reservada')}</span>`;
+  return `<span class="tag">${t(alqDe(p) ? 'Alquiler' : 'Venta')}</span>`;
 }
-const dormDe = p => norm(p.dormitorios).startsWith('mono') ? 'Monoambiente' : num(p.dormitorios) ? `${p.dormitorios} dorm.` : '';
+const dormDe = p => norm(p.dormitorios).startsWith('mono') ? t('Monoambiente') : num(p.dormitorios) ? `${p.dormitorios} ${t('dorm.')}` : '';
 const featsDe = p => `<div class="feats">
   ${dormDe(p) ? `<span>${I.bed}${esc(dormDe(p))}</span>` : ''}
-  ${num(p.banos) ? `<span>${I.bath}${esc(p.banos)} baño${num(p.banos) > 1 ? 's' : ''}</span>` : ''}
+  ${num(p.banos) ? `<span>${I.bath}${esc(p.banos)} ${t(num(p.banos) > 1 ? 'baños' : 'baño')}</span>` : ''}
   ${num(p.metros) ? `<span>${I.area}${num(p.metros)} m²</span>` : ''}
 </div>`;
 
 function gal(fs, alt) {
   if (!fs.length) return '';
   const many = fs.length > 1;
-  return `<div class="gal"><div class="slides">${fs.map((u, i) => `<img ${i ? 'data-src' : 'src'}="${esc(u)}" alt="${esc(alt)}${many ? ` – foto ${i + 1}` : ''}" loading="lazy" onerror="this.remove()">`).join('')}</div>${many ? `
-    <button type="button" class="nav prev" aria-label="Foto anterior">${I.left}</button>
-    <button type="button" class="nav next" aria-label="Foto siguiente">${I.right}</button>
+  return `<div class="gal"><div class="slides">${fs.map((u, i) => `<img ${i ? 'data-src' : 'src'}="${esc(u)}" alt="${esc(alt)}${many ? ` – ${t('foto')} ${i + 1}` : ''}" loading="lazy" onerror="this.remove()">`).join('')}</div>${many ? `
+    <button type="button" class="nav prev" aria-label="${t('Foto anterior')}">${I.left}</button>
+    <button type="button" class="nav next" aria-label="${t('Foto siguiente')}">${I.right}</button>
     <span class="count">1 / ${fs.length}</span>` : ''}</div>`;
 }
 // Las fotos de atrás de cada tarjeta se descargan recién cuando alguien empieza a mirarlas.
@@ -707,9 +948,9 @@ document.addEventListener('click', e => { const nav = e.target.closest('.gal .na
 
 const card = p => `
   <article class="card${cerrada(p) ? ' done' : ''}">
-    <div class="ph">${gal(fotosDe(p).map(u => sized(u, 800)), p.titulo)}${tagDe(p)}</div>
+    <div class="ph">${gal(fotosDe(p).map(u => sized(u, 800)), L(p, 'titulo'))}${tagDe(p)}</div>
     <div class="body">
-      <div class="top"><h3><a href="#/propiedad/${p.slug}">${esc(p.titulo)}</a></h3>${precioDe(p)}</div>
+      <div class="top"><h3><a href="#/propiedad/${p.slug}">${esc(L(p, 'titulo'))}</a></h3>${precioDe(p)}</div>
       <div class="meta">${esc(lugar(p))}</div>
       ${featsDe(p)}
     </div>
@@ -723,7 +964,7 @@ let props = [];
 function buildFilters() {
   const fill = (name, field) => {
     const vals = [...new Set(props.map(p => p[field]).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'es'));
-    document.querySelector(`#search [name=${name}]`).innerHTML = '<option value="">Todos</option>' + vals.map(v => `<option>${esc(v)}</option>`).join('');
+    document.querySelector(`#search [name=${name}]`).innerHTML = `<option value="">${t('Todos')}</option>` + vals.map(v => `<option value="${esc(v)}">${esc(field === 'tipo' ? t(v) : v)}</option>`).join('');
   };
   fill('tipo', 'tipo'); fill('zona', 'barrio');
 }
@@ -733,7 +974,7 @@ function render() {
     .filter(p => (!filters.op || norm(p.operacion) === filters.op) && (!filters.tipo || p.tipo === filters.tipo) && (!filters.zona || p.barrio === filters.zona))
     .sort((a, b) => cerrada(a) - cerrada(b)); // vendidas y alquiladas al final
   grid.innerHTML = list.length ? list.map(card).join('')
-    : '<div class="empty">No hay propiedades con esos filtros por ahora. <a href="#contacto">Avisame qué buscás</a> y te contacto cuando aparezca.</div>';
+    : `<div class="empty">${t('No hay propiedades con esos filtros por ahora. <a href="#contacto">Avisame qué buscás</a> y te contacto cuando aparezca.')}</div>`;
   document.querySelectorAll('.tabs button').forEach(b => b.setAttribute('aria-pressed', b.dataset.op === filters.op));
   reveal(grid);
 }
@@ -747,7 +988,7 @@ function buildPicks() {
   const picks = (marked.length ? marked : ok).slice(0, 4);
   hero.querySelectorAll('.layer:not(.base)').forEach(l => l.remove());
   nav.hidden = !picks.length;
-  nav.innerHTML = picks.map((p, i) => `<a class="pick" href="#/propiedad/${p.slug}" data-i="${i}"><b>${esc(p.titulo)}</b><span>${esc([p.barrio, p.precio].filter(Boolean).join(' · '))}</span></a>`).join('');
+  nav.innerHTML = picks.map((p, i) => `<a class="pick" href="#/propiedad/${p.slug}" data-i="${i}"><b>${esc(L(p, 'titulo'))}</b><span>${esc([p.barrio, p.precio].filter(Boolean).join(' · '))}</span></a>`).join('');
   const base = hero.querySelector('.layer.base');
   const layers = picks.map(p => {
     const l = document.createElement('div');
@@ -818,45 +1059,45 @@ let homeY = 0;
 
 function showProp(p) {
   if (!home.hidden) homeY = scrollY;
-  const fs = fotosDe(p), am = amenities(p), desc = String(p.descripcion || '').split(/\n+/).filter(s => s.trim());
-  const facts = [['PRECIO', (p.precio || 'Consultar') + (alqDe(p) && p.precio ? ' / mes' : '')], ['DORMITORIOS', norm(p.dormitorios).startsWith('mono') ? 'Monoambiente' : p.dormitorios],
-    ['BAÑOS', p.banos], ['SUPERFICIE', num(p.metros) ? num(p.metros) + ' m²' : ''], ['BARRIO', p.barrio]].filter(f => f[1]);
+  const fs = fotosDe(p), am = amenities(p), titulo = L(p, 'titulo'), desc = String(L(p, 'descripcion')).split(/\n+/).filter(s => s.trim());
+  const facts = [[t('PRECIO'), (p.precio || t('Consultar')) + (alqDe(p) && p.precio ? ' ' + t('/ mes') : '')], [t('DORMITORIOS'), norm(p.dormitorios).startsWith('mono') ? t('Monoambiente') : p.dormitorios],
+    [t('BAÑOS'), p.banos], [t('SUPERFICIE'), num(p.metros) ? num(p.metros) + ' m²' : ''], [t('BARRIO'), p.barrio]].filter(f => f[1]);
   const otras = props.filter(o => o !== p && !cerrada(o)).slice(0, 3);
   prop.innerHTML = `
     <section class="p-hero">
       <div class="bg" style="background-image:${esc(cssUrl(fs[0] ? sized(fs[0], 1600) : ''))}"></div>
-      <a class="back" href="#propiedades">${I.left}Propiedades</a>
+      <a class="back" href="#propiedades">${I.left}${t('Propiedades')}</a>
       <div class="wrap">
         ${norm(p.estado) === 'reservada' || cerrada(p) ? tagDe(p) : ''}
-        <h1 class="display" tabindex="-1">${esc(p.titulo)}</h1>
+        <h1 class="display" tabindex="-1">${esc(titulo)}</h1>
         <div class="facts">${facts.map(([k, v]) => `<div><small>${k}</small><b>${esc(v)}</b></div>`).join('')}</div>
-        ${fs.length ? `<button type="button" class="btn" data-full style="margin-top:1.6rem">${I.expand}${fs.length > 1 ? `Ver las ${fs.length} fotos` : 'Ver la foto'}</button>` : ''}
+        ${fs.length ? `<button type="button" class="btn" data-full style="margin-top:1.6rem">${I.expand}${fs.length > 1 ? t('Ver las {n} fotos', {n: fs.length}) : t('Ver la foto')}</button>` : ''}
       </div>
     </section>
     ${fs.length ? `<section style="padding-bottom:0"><div class="wrap">
       <div class="viewer">
-        <img class="main" src="${esc(sized(fs[0], 1600))}" alt="${esc(p.titulo)} – foto 1" draggable="false">
-        ${fs.length > 1 ? `<button type="button" class="pnav prev" data-dir="-1" aria-label="Foto anterior">${I.left}</button>
-        <button type="button" class="pnav next" data-dir="1" aria-label="Foto siguiente">${I.right}</button>
+        <img class="main" src="${esc(sized(fs[0], 1600))}" alt="${esc(titulo)} – ${t('foto')} 1" draggable="false">
+        ${fs.length > 1 ? `<button type="button" class="pnav prev" data-dir="-1" aria-label="${t('Foto anterior')}">${I.left}</button>
+        <button type="button" class="pnav next" data-dir="1" aria-label="${t('Foto siguiente')}">${I.right}</button>
         <span class="chip pcount">1 / ${fs.length}</span>` : ''}
-        <button type="button" class="chip" data-full>${I.expand}Pantalla completa</button>
+        <button type="button" class="chip" data-full>${I.expand}${t('Pantalla completa')}</button>
       </div>
       ${thumbs(fs)}
     </div></section>` : ''}
-    ${desc.length ? `<section><div class="wrap split"><h2 class="h2">${esc(lugar(p).replace(' · ', ' en ') || p.titulo)}.</h2><div class="desc">${desc.map(t => `<p>${esc(t)}</p>`).join('')}</div></div></section>` : ''}
-    ${am.length ? `<section><div class="wrap split"><h2 class="h2">Comodidades.</h2><ul class="amen">${am.map(a => `<li>${amenIcon(a)}${esc(a)}</li>`).join('')}</ul></div></section>` : ''}
-    ${p.plano ? `<section style="padding-top:0"><div class="wrap split"><h2 class="h2">El plano.</h2><div class="plan"><img src="${esc(foto(p.plano))}" alt="Plano de ${esc(p.titulo)}" loading="lazy"></div></div></section>` : ''}
+    ${desc.length ? `<section><div class="wrap split"><h2 class="h2">${esc(lugar(p).replace(' · ', ` ${t('en')} `) || titulo)}.</h2><div class="desc">${desc.map(t => `<p>${esc(t)}</p>`).join('')}</div></div></section>` : ''}
+    ${am.length ? `<section><div class="wrap split"><h2 class="h2">${t('Comodidades.')}</h2><ul class="amen">${am.map(a => `<li>${amenIcon(a)}${esc(a)}</li>`).join('')}</ul></div></section>` : ''}
+    ${p.plano ? `<section style="padding-top:0"><div class="wrap split"><h2 class="h2">${t('El plano.')}</h2><div class="plan"><img src="${esc(foto(p.plano))}" alt="${t('Plano de')} ${esc(titulo)}" loading="lazy"></div></div></section>` : ''}
     ${cerrada(p) ? '' : `<section class="book" style="padding-top:0"><div class="wrap">
-      <h2 class="h2">Elegí un momento para verla.</h2>
-      <p class="lead">Elegí día y horario, y María te confirma la visita por WhatsApp.</p>
+      <h2 class="h2">${t('Elegí un momento para verla.')}</h2>
+      <p class="lead">${t('Elegí día y horario, y María te confirma la visita por WhatsApp.')}</p>
       <div class="cal" id="cal"></div>
     </div></section>`}
-    ${otras.length ? `<section style="padding-top:0"><div class="wrap"><div class="head"><h2 class="h2">Otras propiedades.</h2></div><div class="grid">${otras.map(card).join('')}</div></div></section>` : ''}`;
+    ${otras.length ? `<section style="padding-top:0"><div class="wrap"><div class="head"><h2 class="h2">${t('Otras propiedades.')}</h2></div><div class="grid">${otras.map(card).join('')}</div></div></section>` : ''}`;
   home.hidden = true; prop.hidden = false;
-  document.title = `${p.titulo} · María Márquez Propiedades`;
+  document.title = `${titulo} · María Márquez Propiedades`;
   jumpTop();
   prop.querySelector('h1').focus({preventScroll: true});
-  setPhotos(fs, p.titulo);
+  setPhotos(fs, titulo);
   const v = prop.querySelector('.viewer'); if (v) swipe(v);
   if (!cerrada(p)) booking(p);
   reveal(prop);
@@ -875,7 +1116,7 @@ function showHome(anchor) {
 // Fotos: flechas, miniaturas para elegir, pantalla completa, teclado y deslizar con el dedo.
 const lb = document.getElementById('lb');
 let shots = [], cur = 0, shotsTitle = '';
-const thumbs = fs => fs.length > 1 ? `<div class="thumbs" role="group" aria-label="Elegí una foto">${fs.map((u, i) => `<button type="button" data-i="${i}" aria-pressed="${!i}" aria-label="Ver foto ${i + 1}"><img src="${esc(sized(u, 300))}" alt="" loading="lazy"></button>`).join('')}</div>` : '';
+const thumbs = fs => fs.length > 1 ? `<div class="thumbs" role="group" aria-label="${t('Elegí una foto')}">${fs.map((u, i) => `<button type="button" data-i="${i}" aria-pressed="${!i}" aria-label="${t('Ver foto {n}', {n: i + 1})}"><img src="${esc(sized(u, 300))}" alt="" loading="lazy"></button>`).join('')}</div>` : '';
 function setPhotos(fs, title) { shots = fs.map(u => sized(u, 1600)); cur = 0; shotsTitle = title; }
 function setPhoto(i) {
   if (!shots.length) return;
@@ -885,7 +1126,7 @@ function setPhoto(i) {
     m.classList.add('loading');
     m.onload = m.onerror = () => m.classList.remove('loading');
     m.src = shots[cur];
-    m.alt = `${shotsTitle} – foto ${cur + 1}`;
+    m.alt = `${shotsTitle} – ${t('foto')} ${cur + 1}`;
   });
   document.querySelectorAll('.pcount').forEach(c => c.textContent = `${cur + 1} / ${shots.length}`);
   document.querySelectorAll('.thumbs').forEach(row => row.querySelectorAll('button').forEach(b => {
@@ -898,11 +1139,11 @@ function setPhoto(i) {
 function openLb() {
   if (!shots.length) return;
   lb.innerHTML = `
-    <div class="top"><b>${esc(shotsTitle)}</b><button type="button" class="x" aria-label="Cerrar">${I.close}</button></div>
+    <div class="top"><b>${esc(shotsTitle)}</b><button type="button" class="x" aria-label="${t('Cerrar')}">${I.close}</button></div>
     <div class="box">
-      <img class="main" src="${esc(shots[cur])}" alt="${esc(shotsTitle)} – foto ${cur + 1}" draggable="false">
-      ${shots.length > 1 ? `<button type="button" class="pnav prev" data-dir="-1" aria-label="Foto anterior">${I.left}</button>
-      <button type="button" class="pnav next" data-dir="1" aria-label="Foto siguiente">${I.right}</button>
+      <img class="main" src="${esc(shots[cur])}" alt="${esc(shotsTitle)} – ${t('foto')} ${cur + 1}" draggable="false">
+      ${shots.length > 1 ? `<button type="button" class="pnav prev" data-dir="-1" aria-label="${t('Foto anterior')}">${I.left}</button>
+      <button type="button" class="pnav next" data-dir="1" aria-label="${t('Foto siguiente')}">${I.right}</button>
       <span class="chip pcount">${cur + 1} / ${shots.length}</span>` : ''}
     </div>
     ${thumbs(shots)}`;
@@ -962,8 +1203,9 @@ function booking(p) {
   const today = new Date(); today.setHours(0, 0, 0, 0);
   const st = {month: new Date(today.getFullYear(), today.getMonth(), 1), date: null, time: null, sending: false, done: false, error: '', loading: !!CALENDAR_URL};
   const cap = s => s[0].toUpperCase() + s.slice(1);
-  const fmtMonth = {format: d => cap(new Intl.DateTimeFormat('es-UY', {month: 'long'}).format(d)) + ' ' + d.getFullYear()};
-  const fmtDay = new Intl.DateTimeFormat('es-UY', {weekday: 'long', day: 'numeric', month: 'long'});
+  const fmtMonth = {format: d => cap(new Intl.DateTimeFormat(LOCALE[LANG], {month: 'long'}).format(d)) + ' ' + d.getFullYear()};
+  const fmtDay = new Intl.DateTimeFormat(LOCALE[LANG], {weekday: 'long', day: 'numeric', month: 'long'});
+  const fmtDayEs = new Intl.DateTimeFormat('es-UY', {weekday: 'long', day: 'numeric', month: 'long'}); // el mensaje a María va en español
   const iso = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   const slots = () => agenda?.slots || SLOTS;
   const tipo = key(p.tipo);
@@ -980,45 +1222,45 @@ function booking(p) {
     return busy().some(([a, b]) => s < b && e > a) ? 'ocupado' : 'ok';
   }
   const libre = d => d >= today && d <= last() && !sinVisitas().includes(d.getDay()) && slots().some(t => slotState(d, t) === 'ok');
-  const msg = () => st.date && st.time ? `Hola María, quiero coordinar una visita a "${p.titulo}"${p.barrio ? ` (${p.barrio})` : ''} el ${fmtDay.format(st.date)} a las ${st.time}.` : '';
+  const msg = () => st.date && st.time ? `Hola María, quiero coordinar una visita a "${p.titulo}"${p.barrio ? ` (${p.barrio})` : ''} el ${fmtDayEs.format(st.date)} a las ${st.time}.${LANG !== 'es' ? ` (${LANG.toUpperCase()})` : ''}` : '';
 
   function draw() {
     const y = st.month.getFullYear(), mo = st.month.getMonth();
     const first = (new Date(y, mo, 1).getDay() + 6) % 7, total = new Date(y, mo + 1, 0).getDate();
     const prevOk = new Date(y, mo, 0) >= today, nextOk = new Date(y, mo + 1, 1) <= last();
-    let days = ['L', 'M', 'M', 'J', 'V', 'S', 'D'].map(d => `<span class="dow" aria-hidden="true">${d}</span>`).join('') + '<span></span>'.repeat(first);
+    let days = DOW[LANG].map(d => `<span class="dow" aria-hidden="true">${d}</span>`).join('') + '<span></span>'.repeat(first);
     for (let d = 1; d <= total; d++) {
       const dt = new Date(y, mo, d);
       days += `<button type="button" data-d="${iso(dt)}"${libre(dt) ? '' : ' disabled'}${dt.getTime() === today.getTime() ? ' class="today"' : ''} aria-pressed="${st.date?.getTime() === dt.getTime()}" aria-label="${fmtDay.format(dt)}">${d}</button>`;
     }
     let right;
     if (st.done) {
-      right = `<h3>¡Listo! Tu visita quedó agendada.</h3>
-        <p class="hint">${cap(fmtDay.format(st.date))} a las ${st.time}. María te va a escribir para confirmarla.</p>
-        ${waNumber ? `<a class="btn" href="https://wa.me/${waNumber}?text=${encodeURIComponent(msg())}" target="_blank" rel="noopener">${I.wa}Escribirle a María</a>` : ''}`;
+      right = `<h3>${t('¡Listo! Tu visita quedó agendada.')}</h3>
+        <p class="hint">${cap(fmtDay.format(st.date))} ${t('a las')} ${st.time}. ${t('María te va a escribir para confirmarla.')}</p>
+        ${waNumber ? `<a class="btn" href="https://wa.me/${waNumber}?text=${encodeURIComponent(msg())}" target="_blank" rel="noopener">${I.wa}${t('Escribirle a María')}</a>` : ''}`;
     } else if (!st.date) {
-      right = `<h3>Elegí un día</h3><p class="hint">${st.loading ? 'Cargando los horarios disponibles…' : 'Los días en gris no tienen horarios libres.'}</p>`;
+      right = `<h3>${t('Elegí un día')}</h3><p class="hint">${t(st.loading ? 'Cargando los horarios disponibles…' : 'Los días en gris no tienen horarios libres.')}</p>`;
     } else {
       const list = slots().map(t => {
         const s = slotState(st.date, t);
-        return `<li><button type="button" data-t="${t}" aria-pressed="${st.time === t}"${s === 'ok' ? '' : ' disabled'}>${t}${s === 'ocupado' ? ' <small>Ocupado</small>' : ''}</button></li>`;
+        return `<li><button type="button" data-t="${t}" aria-pressed="${st.time === t}"${s === 'ok' ? '' : ' disabled'}>${t}${s === 'ocupado' ? ` <small>${t('Ocupado')}</small>` : ''}</button></li>`;
       }).join('');
       const form = CALENDAR_URL && agenda && st.time ? `
         <form class="who" novalidate>
-          <label>Tu nombre<input name="nombre" autocomplete="name" required maxlength="60" value="${esc(st.nombre || '')}"></label>
-          <label>Tu teléfono<input name="telefono" type="tel" autocomplete="tel" required maxlength="20" value="${esc(st.telefono || '')}"></label>
+          <label>${t('Tu nombre')}<input name="nombre" autocomplete="name" required maxlength="60" value="${esc(st.nombre || '')}"></label>
+          <label>${t('Tu teléfono')}<input name="telefono" type="tel" autocomplete="tel" required maxlength="20" value="${esc(st.telefono || '')}"></label>
         </form>` : '';
       right = `<h3>${cap(fmtDay.format(st.date))}</h3><ul>${list}</ul>${form}
         ${st.error ? `<p class="err" role="alert">${st.error}</p>` : ''}
-        <button type="button" class="btn" data-go${st.time && !st.sending ? '' : ' disabled'}>${st.sending ? 'Agendando…' : `${I.wa}${CALENDAR_URL && agenda ? 'Pedir visita' : 'Pedir visita por WhatsApp'}`}</button>
-        <p class="note">${CALENDAR_URL && agenda ? 'Queda agendada en el calendario de María y ella te confirma por WhatsApp.' : 'La visita queda confirmada cuando María te responde.'}</p>`;
+        <button type="button" class="btn" data-go${st.time && !st.sending ? '' : ' disabled'}>${st.sending ? t('Agendando…') : `${I.wa}${t(CALENDAR_URL && agenda ? 'Pedir visita' : 'Pedir visita por WhatsApp')}`}</button>
+        <p class="note">${t(CALENDAR_URL && agenda ? 'Queda agendada en el calendario de María y ella te confirma por WhatsApp.' : 'La visita queda confirmada cuando María te responde.')}</p>`;
     }
     box.innerHTML = `
       <div>
         <div class="cal-head">
-          <button type="button" data-m="-1" aria-label="Mes anterior"${prevOk ? '' : ' disabled'}>${I.left}</button>
+          <button type="button" data-m="-1" aria-label="${t('Mes anterior')}"${prevOk ? '' : ' disabled'}>${I.left}</button>
           <b aria-live="polite">${fmtMonth.format(st.month)}</b>
-          <button type="button" data-m="1" aria-label="Mes siguiente"${nextOk ? '' : ' disabled'}>${I.right}</button>
+          <button type="button" data-m="1" aria-label="${t('Mes siguiente')}"${nextOk ? '' : ' disabled'}>${I.right}</button>
         </div>
         <div class="days">${days}</div>
       </div>
@@ -1028,8 +1270,8 @@ function booking(p) {
   async function enviar() {
     const f = box.querySelector('form.who');
     st.nombre = f.nombre.value.trim(); st.telefono = f.telefono.value.trim();
-    if (st.nombre.length < 2) { st.error = 'Escribí tu nombre.'; draw(); return box.querySelector('[name=nombre]').focus(); }
-    if (st.telefono.replace(/\D/g, '').length < 6) { st.error = 'Escribí un teléfono para que María te pueda confirmar.'; draw(); return box.querySelector('[name=telefono]').focus(); }
+    if (st.nombre.length < 2) { st.error = t('Escribí tu nombre.'); draw(); return box.querySelector('[name=nombre]').focus(); }
+    if (st.telefono.replace(/\D/g, '').length < 6) { st.error = t('Escribí un teléfono para que María te pueda confirmar.'); draw(); return box.querySelector('[name=telefono]').focus(); }
     st.error = ''; st.sending = true; draw();
     let res;
     try {
@@ -1042,11 +1284,11 @@ function booking(p) {
       track('pedir_visita', {propiedad: p.titulo, dia: iso(st.date), hora: st.time, agendada: true});
       loadAgenda(true);
     } else if (res.error === 'ocupado' || res.error === 'horario') {
-      st.error = 'Ese horario se acaba de ocupar. Elegí otro, por favor.';
+      st.error = t('Ese horario se acaba de ocupar. Elegí otro, por favor.');
       st.time = null;
       await loadAgenda(true);
     } else {
-      st.error = 'No pudimos agendar en este momento. Probá de nuevo o escribile a María por WhatsApp.';
+      st.error = t('No pudimos agendar en este momento. Probá de nuevo o escribile a María por WhatsApp.');
     }
     draw();
   }
@@ -1151,7 +1393,7 @@ document.getElementById('contact-form').addEventListener('submit', e => {
   if (!f.nombre.value.trim() || !f.tel.value.trim()) { (f.nombre.value.trim() ? f.tel : f.nombre).focus(); return; }
   track('enviar_formulario', {motivo: f.motivo.value});
   // shortcut: demo sin backend; en producción conectar a email (Formspree, etc.) o WhatsApp
-  f.insertAdjacentHTML('beforeend', '<p class="ok" role="status">¡Gracias! Te contactamos a la brevedad. (Demo: este formulario todavía no envía)</p>');
+  f.insertAdjacentHTML('beforeend', `<p class="ok" role="status">${t('¡Gracias! Te contactamos a la brevedad. (Demo: este formulario todavía no envía)')}</p>`);
   f.reset();
 });
 
@@ -1186,7 +1428,7 @@ const visibles = rows => rows.filter(p => p.titulo && norm(p.estado) !== 'oculta
   try { rows = await loadTab('Propiedades'); }
   catch (e) {
     console.error(e);
-    if (!fresh) grid.innerHTML = '<div class="empty">No pudimos cargar las propiedades en este momento. <a href="#contacto">Escribinos</a> y te pasamos las disponibles.</div>';
+    if (!fresh) grid.innerHTML = `<div class="empty">${t('No pudimos cargar las propiedades en este momento. <a href="#contacto">Escribinos</a> y te pasamos las disponibles.')}</div>`;
     return;
   }
   const d = await datos;
@@ -1197,6 +1439,8 @@ const visibles = rows => rows.filter(p => p.titulo && norm(p.estado) !== 'oculta
   if (fresh) { slugs(); buildFilters(); buildPicks(); render(); route(); } else start();
 })();
 solid();
+document.querySelector('.lang').addEventListener('click', e => { const b = e.target.closest('[data-lang]'); if (b) setLang(b.dataset.lang, true); });
+setLang(LANG);
 </script>
 </body>
 </html>
