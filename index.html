@@ -7,6 +7,8 @@
 <meta name="description" content="Compra, venta y alquiler de casas y apartamentos en Montevideo y Ciudad de la Costa. Tasaciones y asesoramiento personal, con 11 años de experiencia.">
 <link rel="canonical" href="https://mariamarquez.com.uy/">
 <!-- ícono de la marca -->
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <!-- vista previa al compartir el link (WhatsApp, Instagram, Facebook...) -->
@@ -291,6 +293,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .amen li{display:flex;align-items:center;gap:.8rem;padding:1.1rem 0;border-top:1px solid var(--line)}
   .amen svg{width:22px;height:22px;stroke:var(--green-dark);flex:none}
   .plan img{width:100%;border-radius:18px;background:#fff}
+  .map iframe{display:block;width:100%;aspect-ratio:4/3;border:0;border-radius:18px;background:var(--card)}
   /* agendar visita */
   .book{text-align:center}
   .book .lead{margin-inline:auto}
@@ -694,6 +697,8 @@ const D = {
   'Comodidades.': ['Amenities.', 'Comodidades.'],
   'El plano.': ['Floor plan.', 'Planta.'],
   'Plano de': ['Floor plan of', 'Planta de'],
+  'La ubicación.': ['Location.', 'Localização.'],
+  'Mapa de': ['Map of', 'Mapa de'],
   'Elegí un momento para verla.': ['Pick a time to see it.', 'Escolha um horário para visitar.'],
   'Elegí día y horario, y María te confirma la visita por WhatsApp.': ['Choose a day and time, and María will confirm the viewing on WhatsApp.', 'Escolha dia e horário, e María confirma a visita pelo WhatsApp.'],
   'Otras propiedades.': ['Other properties.', 'Outros imóveis.'],
@@ -833,7 +838,7 @@ function toObjects(rows) {
     .map(r => Object.fromEntries(h.map((k, i) => [k, (r[i] || '').trim()])));
 }
 async function loadTab(tab) {
-  const r = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tab)}&_=${Date.now()}`); // evita copias viejas en caché
+  const r = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&headers=1&sheet=${encodeURIComponent(tab)}&_=${Date.now()}`); // evita copias viejas en caché
   if (!r.ok) throw new Error(tab + ': ' + r.status);
   return toObjects(parseCSV(await r.text()));
 }
@@ -922,7 +927,15 @@ const I = {
 // Columna "Amenities": se separan con coma. Cada una busca su ícono por palabra clave;
 // si no hay ícono para esa palabra, lleva un tilde. Para sumar un ícono, agregar una línea acá.
 const AMEN = [
-  [/cocina|kitchen|cozinha/, '<path d="M4 11h16v7a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z"/><path d="M2 11h20"/><path d="M9 7V5M12 7V4M15 7V5"/>'],
+  [/camara|camera|cctv|videovigil/, '<path d="M3 7h12l-2 7H3z"/><path d="m15 9 5-2v5l-5-2"/><path d="M6 14v4H3"/>'],
+  [/\bs\.?u\.?m\b|usos multiples|salon de fiestas|party room|salao de festas|multipurpose|multiuso/, '<path d="M5.8 11.3 2 22l10.7-3.8"/><path d="M4 3h.01M22 8h.01M15 2h.01M22 20h.01"/><path d="M9 7a6 6 0 0 1 8 8z"/>'],
+  [/play ?room|sala de juegos|juegos|kids|infantil|playground|brinquedo|crianca/, '<circle cx="12" cy="12" r="9"/><path d="M8.5 14a4 4 0 0 0 7 0"/><path d="M9 9h.01M15 9h.01"/>'],
+  [/bici|bike|cicle|bicycle/, '<circle cx="5.5" cy="17" r="3.5"/><circle cx="18.5" cy="17" r="3.5"/><path d="M5.5 17 9 9h6l3.5 8M9 9 12 17l3-8M8 6h3"/>'],
+  [/cafe|coffee/, '<path d="M4 8h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 10h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 2v3M12 2v3"/>'],
+  [/nautic|marina|embarcadero|kayak|boat|barco/, '<path d="M2 20c2 0 2-1.5 4-1.5s2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"/><path d="M4 15h16l-2 3H6z"/><path d="M12 3v12M12 4l6 9h-6"/>'],
+  [/sendero|trail|caminata|trilha/, '<circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h7.5a3.5 3.5 0 0 0 0-7h-7a3.5 3.5 0 0 1 0-7H16"/>'],
+  [/park(?!ing)|plaza|praca|recreac|green|verde/, '<path d="M12 22v-6"/><path d="M12 16a5 5 0 0 0 5-5c0-3-2-5-5-9-3 4-5 6-5 9a5 5 0 0 0 5 5z"/>'],
+  [/cocina|kitchen|cozinha/,'<path d="M4 11h16v7a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z"/><path d="M2 11h20"/><path d="M9 7V5M12 7V4M15 7V5"/>'],
   [/toilette|toilet|lavabo|medio bano|half bath|powder room/, '<path d="M7 3h4v8H7z"/><path d="M5 11h14a6 6 0 0 1-6 6h-2a6 6 0 0 1-6-6z"/><path d="M9 17l-1 4h8l-1-4"/>'],
   [/dormitorio|bedroom|quarto|suite/, '<path d="M2 18V6"/><path d="M2 12h20v6"/><path d="M22 18v-4a3 3 0 0 0-3-3h-8v4"/><circle cx="6.5" cy="9.5" r="1.5"/>'],
   [/bano|bath|banheiro/, '<path d="M4 12h16v3a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M6 12V5a2 2 0 0 1 4 0"/>'],
@@ -1132,6 +1145,7 @@ function showProp(p) {
     ${desc.length ? `<section><div class="wrap split"><h2 class="h2">${esc(lugar(p).replace(' · ', ` ${t('en')} `) || titulo)}.</h2><div class="desc">${desc.map(t => `<p>${esc(t)}</p>`).join('')}</div></div></section>` : ''}
     ${am.length ? `<section><div class="wrap split"><h2 class="h2">${t('Comodidades.')}</h2><ul class="amen">${am.map(a => `<li>${amenIcon(a)}${esc(a)}</li>`).join('')}</ul></div></section>` : ''}
     ${p.plano ? `<section style="padding-top:0"><div class="wrap split"><h2 class="h2">${t('El plano.')}</h2><div class="plan"><img src="${esc(foto(p.plano))}" alt="${t('Plano de')} ${esc(titulo)}" loading="lazy"></div></div></section>` : ''}
+    ${p.ubicacion || p.barrio ? `<section style="padding-top:0"><div class="wrap split"><h2 class="h2">${t('La ubicación.')}</h2><div class="map"><iframe src="https://www.google.com/maps?q=${encodeURIComponent((p.ubicacion || p.barrio) + ', Uruguay')}&output=embed" title="${t('Mapa de')} ${esc(titulo)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div></div></section>` : ''}
     ${cerrada(p) ? '' : `<section class="book" style="padding-top:0"><div class="wrap">
       <h2 class="h2">${t('Elegí un momento para verla.')}</h2>
       <p class="lead">${t('Elegí día y horario, y María te confirma la visita por WhatsApp.')}</p>
