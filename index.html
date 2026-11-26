@@ -152,7 +152,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   /* buscador */
   .find{padding-block:28px;border-bottom:1px solid var(--line);background:var(--bg-2)}
-  .search{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:12px;align-items:end}
+  .search{display:grid;grid-template-columns:repeat(5,minmax(0,1fr)) auto;gap:12px;align-items:end}
   .search label{display:grid;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.06em;color:var(--text-2)}
   select,input,textarea{font:400 1rem 'Montserrat',sans-serif;color:var(--text);background:#fff;border:1px solid var(--line-2);border-radius:12px;padding:.85rem 1rem;width:100%}
   select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%2362645f' stroke-width='2'%3E%3Cpath d='m1 1 5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.4rem;cursor:pointer}
@@ -258,8 +258,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .facts b{font-weight:600;font-size:1.15rem}
   .desc p{color:var(--text-2);font-size:1.08rem;max-width:62ch;margin:0 0 1rem}
   /* fotos: foto grande con flechas + miniaturas para elegir + pantalla completa */
-  .viewer{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:var(--card);touch-action:pan-y}
-  .main{width:100%;height:100%;object-fit:cover;transition:opacity 180ms ease;user-select:none;-webkit-user-drag:none}
+  /* la foto entra entera en la pantalla: alto máximo = ventana menos el menú, sin recortar */
+  .viewer{position:relative;aspect-ratio:16/9;max-height:calc(100svh - var(--header) - 40px);width:100%;margin-inline:auto;border-radius:18px;overflow:hidden;background:#0f100f;touch-action:pan-y}
+  .main{width:100%;height:100%;object-fit:contain;transition:opacity 180ms ease;user-select:none;-webkit-user-drag:none}
   .main.loading{opacity:.35}
   .viewer .main{cursor:zoom-in}
   .pnav{position:absolute;top:50%;z-index:2;width:48px;height:48px;border-radius:50%;border:0;background:rgba(255,255,255,.95);display:grid;place-items:center;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.18);transform:translateY(-50%);transition:transform 160ms var(--ease-out)}
@@ -284,7 +285,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .lb .top b{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .lb .x{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:none;display:grid;place-items:center;cursor:pointer;flex:none}
   .lb .x svg{width:22px;height:22px;stroke:#fff}
-  .lb .box{position:relative;display:grid;place-items:center;min-height:0;padding:0 84px;touch-action:pan-y}
+  .lb .box{position:relative;display:grid;grid-template:minmax(0,1fr)/minmax(0,1fr);place-items:center;min-height:0;overflow:hidden;padding:0 84px;touch-action:pan-y}
   .lb .main{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:8px}
   .lb .thumbs{justify-content:safe center;padding:12px var(--gutter) calc(18px + env(safe-area-inset-bottom,0px));margin:0}
   .lb .thumbs button{width:96px;opacity:.45}
@@ -449,6 +450,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <label>BARRIO
         <select name="zona"><option value="">Todos</option></select>
       </label>
+      <label>DORMITORIOS
+        <select name="dorm"><option value="">Todos</option><option value="0">Monoambiente</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4 o más</option></select>
+      </label>
+      <label>ENTREGA
+        <select name="entrega"><option value="">Todas</option><option value="inmediata">Entrega inmediata</option><option value="obra">En obra</option></select>
+      </label>
       <button class="btn" type="submit">Buscar</button>
     </form>
   </div>
@@ -601,6 +608,10 @@ const D = {
   'BARRIO': ['NEIGHBORHOOD', 'BAIRRO'],
   'Todas': ['All', 'Todas'],
   'Todos': ['All', 'Todos'],
+  'ENTREGA': ['DELIVERY', 'ENTREGA'],
+  'Entrega inmediata': ['Ready to move in', 'Entrega imediata'],
+  'En obra': ['Under construction', 'Em construção'],
+  '4 o más': ['4 or more', '4 ou mais'],
   'Comprar': ['Buy', 'Comprar'],
   'Alquilar': ['Rent', 'Alugar'],
   'Buscar': ['Search', 'Buscar'],
@@ -1016,7 +1027,10 @@ const card = p => `
 
 // ----- inicio -----
 const grid = document.getElementById('grid');
-const filters = {op: '', tipo: '', zona: ''};
+const filters = {op: '', tipo: '', zona: '', dorm: '', entrega: ''};
+// "Entrega" del Excel: cualquier texto con "obra" = en obra; "inmediata" (o "a estrenar"/"pronto") = entrega inmediata
+const entregaDe = p => { const e = norm(p.entrega); return /obra|construc/.test(e) ? 'obra' : /inmediat|estrenar|pronto|ready/.test(e) ? 'inmediata' : ''; };
+const okDorm = p => !filters.dorm || (filters.dorm === '0' ? norm(p.dormitorios).startsWith('mono') : filters.dorm === '4' ? num(p.dormitorios) >= 4 : num(p.dormitorios) === +filters.dorm && !norm(p.dormitorios).startsWith('mono'));
 let props = [];
 
 function buildFilters() {
@@ -1029,7 +1043,7 @@ function buildFilters() {
 
 function render() {
   const list = props
-    .filter(p => (!filters.op || norm(p.operacion) === filters.op) && (!filters.tipo || p.tipo === filters.tipo) && (!filters.zona || p.barrio === filters.zona))
+    .filter(p => (!filters.op || norm(p.operacion) === filters.op) && (!filters.tipo || p.tipo === filters.tipo) && (!filters.zona || p.barrio === filters.zona) && okDorm(p) && (!filters.entrega || entregaDe(p) === filters.entrega))
     .sort((a, b) => cerrada(a) - cerrada(b)); // vendidas y alquiladas al final
   grid.innerHTML = list.length ? list.map(card).join('')
     : `<div class="empty">${t('No hay propiedades con esos filtros por ahora. <a href="#contacto">Avisame qué buscás</a> y te contacto cuando aparezca.')}</div>`;
@@ -1105,8 +1119,8 @@ document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click
 document.getElementById('search').addEventListener('submit', e => {
   e.preventDefault();
   const f = new FormData(e.target);
-  filters.op = f.get('op'); filters.tipo = f.get('tipo'); filters.zona = f.get('zona');
-  track('buscar', {operacion: filters.op || 'todas', tipo: filters.tipo || 'todos', barrio: filters.zona || 'todos'});
+  filters.op = f.get('op'); filters.tipo = f.get('tipo'); filters.zona = f.get('zona'); filters.dorm = f.get('dorm'); filters.entrega = f.get('entrega');
+  track('buscar', {operacion: filters.op || 'todas', tipo: filters.tipo || 'todos', barrio: filters.zona || 'todos', dormitorios: filters.dorm || 'todos', entrega: filters.entrega || 'todas'});
   render();
   scrollToEl(document.getElementById('propiedades'));
 });
@@ -1119,7 +1133,7 @@ function showProp(p) {
   if (!home.hidden) homeY = scrollY;
   const fs = fotosDe(p), am = amenities(p), titulo = L(p, 'titulo'), desc = String(L(p, 'descripcion')).split(/\n+/).filter(s => s.trim());
   const facts = [[t('PRECIO'), (p.precio || t('Consultar')) + (alqDe(p) && p.precio ? ' ' + t('/ mes') : '')], [t('DORMITORIOS'), norm(p.dormitorios).startsWith('mono') ? t('Monoambiente') : p.dormitorios],
-    [t('BAÑOS'), p.banos], [t('SUPERFICIE'), num(p.metros) ? num(p.metros) + ' m²' : ''], [t('BARRIO'), p.barrio]].filter(f => f[1]);
+    [t('BAÑOS'), p.banos], [t('SUPERFICIE'), num(p.metros) ? num(p.metros) + ' m²' : ''], [t('BARRIO'), p.barrio], [t('ENTREGA'), entregaDe(p) === 'obra' ? t('En obra') : entregaDe(p) ? t('Entrega inmediata') : '']].filter(f => f[1]);
   const otras = props.filter(o => o !== p && !cerrada(o)).slice(0, 3);
   prop.innerHTML = `
     <section class="p-hero">
