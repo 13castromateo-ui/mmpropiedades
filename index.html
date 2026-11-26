@@ -273,7 +273,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   button.chip{right:16px;cursor:pointer;transition:transform 160ms var(--ease-out)}
   button.chip:active{transform:scale(.96)}
   .thumbs{display:flex;gap:10px;overflow-x:auto;margin-top:12px;padding:2px 2px 6px;scrollbar-width:thin}
-  .thumbs button{flex:0 0 auto;width:120px;aspect-ratio:4/3;border-radius:10px;overflow:hidden;padding:0;border:2px solid transparent;background:var(--card);cursor:pointer;opacity:.6;transition:opacity 150ms ease,border-color 150ms ease}
+  .thumbs button{flex:0 0 auto;width:120px;aspect-ratio:4/3;border-radius:10px;overflow:hidden;padding:0;border:2px solid transparent;background:var(--card);cursor:pointer;opacity:.85;transition:opacity 150ms ease,border-color 150ms ease}
   .thumbs button[aria-pressed="true"]{opacity:1;border-color:var(--green-dark)}
   .thumbs img{width:100%;height:100%;object-fit:cover;pointer-events:none}
   .lb{width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;background:#0f100f;color:#fff;
@@ -288,7 +288,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .lb .box{position:relative;display:grid;grid-template:minmax(0,1fr)/minmax(0,1fr);place-items:center;min-height:0;overflow:hidden;padding:0 84px;touch-action:pan-y}
   .lb .main{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:8px}
   .lb .thumbs{justify-content:safe center;padding:12px var(--gutter) calc(18px + env(safe-area-inset-bottom,0px));margin:0}
-  .lb .thumbs button{width:96px;opacity:.45}
+  .lb .thumbs button{width:96px;opacity:.8}
   .lb .thumbs button[aria-pressed="true"]{border-color:var(--green)}
   .amen{display:grid;grid-template-columns:1fr 1fr;column-gap:2rem;list-style:none;margin:0;padding:0}
   .amen li{display:flex;align-items:center;gap:.8rem;padding:1.1rem 0;border-top:1px solid var(--line)}
@@ -296,6 +296,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .plan img{width:100%;border-radius:18px;background:#fff}
   .map iframe{display:block;width:100%;aspect-ratio:4/3;border:0;border-radius:18px;background:var(--card)}
   /* agendar visita */
+  /* página de la propiedad: info a la izquierda, calendario de visita fijo a la derecha */
+  .pd-sec{padding-block:clamp(48px,6vw,88px)}
+  .pd{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,400px);gap:clamp(32px,5vw,72px);align-items:start}
+  .pd.solo{grid-template-columns:minmax(0,1fr);max-width:860px}
+  .pd h2{font-size:clamp(1.4rem,2.2vw,1.85rem);margin:0 0 1.2rem}
+  .blk + .blk{margin-top:clamp(36px,4vw,52px);padding-top:clamp(36px,4vw,52px);border-top:1px solid var(--line)}
+  .pd-side{padding:clamp(20px,2.4vw,28px);background:var(--bg-2);border:1px solid var(--line);border-radius:22px}
+  .pd-side h2{font-size:1.4rem;margin-bottom:.4rem}
+  .pd-side > p{color:var(--text-2);margin:0 0 1rem}
+  .pd-side .cal{grid-template-columns:1fr;gap:20px;max-width:none;margin:0;padding:0;background:none;border:0;border-radius:0}
+  @media (min-height:860px){.pd-side{position:sticky;top:calc(var(--header) + 24px)}} /* fijo solo si entra en la pantalla */
+  @media (max-width:980px){.pd{grid-template-columns:minmax(0,1fr)} .pd-side{position:static}}
   .book{text-align:center}
   .book .lead{margin-inline:auto}
   .cal{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(24px,4vw,48px);max-width:980px;margin:clamp(32px,5vw,56px) auto 0;padding:clamp(20px,3vw,36px);background:var(--bg-2);border:1px solid var(--line);border-radius:22px;text-align:left}
@@ -578,7 +590,7 @@ let DURACION = 60; // minutos por visita; se puede cambiar en la planilla (Datos
 // Duración por tipo de propiedad: filas "Duración Casa (minutos)", "Duración Apartamento (minutos)"... en Datos.
 let DURACION_TIPO = {casa: 45, apartamento: 25};
 // Calendario de Google de María: pegá acá la URL del programa del calendario (termina en /exec). Vacío = sin conexión.
-const CALENDAR_URL = '';
+const CALENDAR_URL = 'https://script.google.com/macros/s/AKfycbwK6RtS7tDTEJKUt-yLnyl-u2PxV0KO2KIop9U1gSSW1X_Y0mXzfqoi6ji98x-_X2AFPg/exec';
 // Estadísticas: pegá acá el ID de medición de Google Analytics 4 (empieza con "G-"). Vacío = sin estadísticas.
 const GA_ID = 'G-E20RTE13VD';
 // =========================
@@ -685,7 +697,8 @@ const D = {
   'Mensaje': ['Message', 'Mensagem'],
   'Contame qué estás buscando': ['Tell me what you are looking for', 'Conte o que você procura'],
   'Enviar consulta': ['Send message', 'Enviar mensagem'],
-  '¡Gracias! Te contactamos a la brevedad. (Demo: este formulario todavía no envía)': ['Thank you! We will get back to you shortly. (Demo: this form does not send yet)', 'Obrigado! Entraremos em contato em breve. (Demo: este formulário ainda não envia)'],
+  '¡Gracias! Te contactamos a la brevedad.': ['Thank you! We will get back to you shortly.', 'Obrigado! Entraremos em contato em breve.'],
+  'No se pudo enviar. Escribime por WhatsApp o a {mail}.': ['It could not be sent. Message me on WhatsApp or at {mail}.', 'Não foi possível enviar. Escreva pelo WhatsApp ou para {mail}.'],
   // pie
   'Inicio': ['Home', 'Início'],
   'Pie': ['Footer', 'Rodapé'],
@@ -1044,7 +1057,8 @@ function buildFilters() {
 function render() {
   const list = props
     .filter(p => (!filters.op || norm(p.operacion) === filters.op) && (!filters.tipo || p.tipo === filters.tipo) && (!filters.zona || p.barrio === filters.zona) && okDorm(p) && (!filters.entrega || entregaDe(p) === filters.entrega))
-    .sort((a, b) => cerrada(a) - cerrada(b)); // vendidas y alquiladas al final
+    // vendidas y alquiladas al final; arriba las destacadas; después las más vistas; empate = orden de la planilla
+    .sort((a, b) => cerrada(a) - cerrada(b) || destacada(b) - destacada(a) || (vistas[b.slug] || 0) - (vistas[a.slug] || 0));
   grid.innerHTML = list.length ? list.map(card).join('')
     : `<div class="empty">${t('No hay propiedades con esos filtros por ahora. <a href="#contacto">Avisame qué buscás</a> y te contacto cuando aparezca.')}</div>`;
   document.querySelectorAll('.tabs button').forEach(b => b.setAttribute('aria-pressed', b.dataset.op === filters.op));
@@ -1156,15 +1170,19 @@ function showProp(p) {
       </div>
       ${thumbs(fs)}
     </div></section>` : ''}
-    ${desc.length ? `<section><div class="wrap split"><h2 class="h2">${esc(lugar(p).replace(' · ', ` ${t('en')} `) || titulo)}.</h2><div class="desc">${desc.map(t => `<p>${esc(t)}</p>`).join('')}</div></div></section>` : ''}
-    ${am.length ? `<section><div class="wrap split"><h2 class="h2">${t('Comodidades.')}</h2><ul class="amen">${am.map(a => `<li>${amenIcon(a)}${esc(a)}</li>`).join('')}</ul></div></section>` : ''}
-    ${p.plano ? `<section style="padding-top:0"><div class="wrap split"><h2 class="h2">${t('El plano.')}</h2><div class="plan"><img src="${esc(foto(p.plano))}" alt="${t('Plano de')} ${esc(titulo)}" loading="lazy"></div></div></section>` : ''}
-    ${p.ubicacion || p.barrio ? `<section style="padding-top:0"><div class="wrap split"><h2 class="h2">${t('La ubicación.')}</h2><div class="map"><iframe src="https://www.google.com/maps?q=${encodeURIComponent((p.ubicacion || p.barrio) + ', Uruguay')}&output=embed" title="${t('Mapa de')} ${esc(titulo)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div></div></section>` : ''}
-    ${cerrada(p) ? '' : `<section class="book" style="padding-top:0"><div class="wrap">
-      <h2 class="h2">${t('Elegí un momento para verla.')}</h2>
-      <p class="lead">${t('Elegí día y horario, y María te confirma la visita por WhatsApp.')}</p>
-      <div class="cal" id="cal"></div>
-    </div></section>`}
+    <section class="pd-sec"><div class="wrap pd${cerrada(p) ? ' solo' : ''}">
+      <div class="pd-main">
+        ${desc.length ? `<div class="blk"><h2>${esc(lugar(p).replace(' · ', ` ${t('en')} `) || titulo)}.</h2><div class="desc">${desc.map(t => `<p>${esc(t)}</p>`).join('')}</div></div>` : ''}
+        ${am.length ? `<div class="blk"><h2>${t('Comodidades.')}</h2><ul class="amen">${am.map(a => `<li>${amenIcon(a)}${esc(a)}</li>`).join('')}</ul></div>` : ''}
+        ${p.plano ? `<div class="blk"><h2>${t('El plano.')}</h2><div class="plan"><img src="${esc(foto(p.plano))}" alt="${t('Plano de')} ${esc(titulo)}" loading="lazy"></div></div>` : ''}
+        ${p.ubicacion || p.barrio ? `<div class="blk"><h2>${t('La ubicación.')}</h2><div class="map"><iframe src="https://www.google.com/maps?q=${encodeURIComponent((p.ubicacion || p.barrio) + ', Uruguay')}&output=embed" title="${t('Mapa de')} ${esc(titulo)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div></div>` : ''}
+      </div>
+      ${cerrada(p) ? '' : `<aside class="pd-side">
+        <h2>${t('Elegí un momento para verla.')}</h2>
+        <p>${t('Elegí día y horario, y María te confirma la visita por WhatsApp.')}</p>
+        <div class="cal" id="cal"></div>
+      </aside>`}
+    </div></section>
     ${otras.length ? `<section style="padding-top:0"><div class="wrap"><div class="head"><h2 class="h2">${t('Otras propiedades.')}</h2></div><div class="grid">${otras.map(card).join('')}</div></div></section>` : ''}`;
   home.hidden = true; prop.hidden = false;
   document.title = `${titulo} · María Márquez Propiedades`;
@@ -1349,7 +1367,7 @@ function booking(p) {
     st.error = ''; st.sending = true; draw();
     let res;
     try {
-      const r = await fetch(CALENDAR_URL, {method: 'POST', body: JSON.stringify({propiedad: p.titulo + (p.barrio ? ` (${p.barrio})` : ''), tipo: p.tipo || '', nombre: st.nombre, telefono: st.telefono, fecha: iso(st.date), hora: st.time})});
+      const r = await fetch(CALENDAR_URL, {method: 'POST', body: JSON.stringify({slug: p.slug, propiedad: p.titulo + (p.barrio ? ` (${p.barrio})` : ''), tipo: p.tipo || '', nombre: st.nombre, telefono: st.telefono, fecha: iso(st.date), hora: st.time})});
       res = await r.json();
     } catch (e) { res = {ok: false, error: 'red'}; }
     st.sending = false;
@@ -1404,6 +1422,7 @@ function route() {
   const wasProp = !prop.hidden;
   if (p) showProp(p);
   else if (wasProp) showHome();
+  if (p) contarVista(p);
   if (p) { pageView(p.titulo, `/propiedad/${p.slug}`); track('ver_propiedad', {propiedad: p.titulo, barrio: p.barrio || '', operacion: p.operacion || ''}); }
   else if (!route.done || wasProp) pageView('Inicio', '/');
   route.done = true;
@@ -1473,15 +1492,31 @@ addEventListener('scroll', solid, {passive: true});
 function closeMenu() { menu.classList.remove('open'); menuBtn.setAttribute('aria-expanded', false); solid(); }
 menuBtn.addEventListener('click', () => { const o = menu.classList.toggle('open'); menuBtn.setAttribute('aria-expanded', o); solid(); });
 
-document.getElementById('contact-form').addEventListener('submit', e => {
+// Las consultas llegan al mail de María a través del script del calendario; sin él, se abre el mail de la persona.
+const MAIL_CONSULTAS = 'maria@mariamarquez.com.uy';
+document.getElementById('contact-form').addEventListener('submit', async e => {
   e.preventDefault();
-  const f = e.target;
+  const f = e.target, btn = f.querySelector('button[type=submit]');
   f.querySelector('.ok')?.remove();
   if (!f.nombre.value.trim() || !f.tel.value.trim()) { (f.nombre.value.trim() ? f.tel : f.nombre).focus(); return; }
+  if (btn.disabled) return;
   track('enviar_formulario', {motivo: f.motivo.value});
-  // shortcut: demo sin backend; en producción conectar a email (Formspree, etc.) o WhatsApp
-  f.insertAdjacentHTML('beforeend', `<p class="ok" role="status">${t('¡Gracias! Te contactamos a la brevedad. (Demo: este formulario todavía no envía)')}</p>`);
-  f.reset();
+  const datos = Object.fromEntries(new FormData(f));
+  const aviso = (msg, ok) => f.insertAdjacentHTML('beforeend', `<p class="ok" role="status"${ok ? '' : ' style="color:#a33"'}>${msg}</p>`);
+  if (!CALENDAR_URL) {
+    const cuerpo = `Nombre: ${datos.nombre}\nTeléfono: ${datos.tel}\nEmail: ${datos.email}\nMe interesa: ${datos.motivo}\n\n${datos.mensaje}`;
+    location.href = `mailto:${MAIL_CONSULTAS}?subject=${encodeURIComponent('Consulta web: ' + datos.motivo)}&body=${encodeURIComponent(cuerpo)}`;
+    return;
+  }
+  btn.disabled = true;
+  try {
+    const r = await (await fetch(CALENDAR_URL, {method: 'POST', body: JSON.stringify({accion: 'consulta', ...datos})})).json();
+    if (!r.ok) throw new Error(r.error);
+    aviso(t('¡Gracias! Te contactamos a la brevedad.'), true);
+    f.reset();
+  } catch (err) {
+    aviso(t('No se pudo enviar. Escribime por WhatsApp o a {mail}.', {mail: MAIL_CONSULTAS}));
+  } finally { btn.disabled = false; }
 });
 
 // ----- carga de datos -----
@@ -1504,6 +1539,19 @@ const store = {
   set: (k, v) => { try { localStorage.setItem('mm_' + k, JSON.stringify(v)); } catch (e) {} },
 };
 const visibles = rows => rows.filter(p => p.titulo && norm(p.estado) !== 'oculta');
+// Popularidad: cuántas veces se abrió cada propiedad (+5 por pedido de visita), la guarda el script del calendario.
+let vistas = store.get('vistas') || {};
+const destacada = p => norm(p.destacada).startsWith('si');
+function contarVista(p) {
+  if (!CALENDAR_URL) return;
+  try { if (sessionStorage.getItem('v_' + p.slug)) return; sessionStorage.setItem('v_' + p.slug, 1); } catch (e) {} // una vez por visita al sitio
+  fetch(CALENDAR_URL, {method: 'POST', body: JSON.stringify({accion: 'vista', slug: p.slug}), keepalive: true}).catch(() => {});
+}
+if (CALENDAR_URL) fetch(CALENDAR_URL + '?vistas=1').then(r => r.json()).then(d => {
+  if (!d.vistas) return;
+  vistas = d.vistas; store.set('vistas', vistas);
+  if (props.length) render();
+}).catch(() => {}); // si falla, queda el orden de la planilla
 (async () => {
   if (!SHEET_ID) { props = demo; start(); return; }
   // Se muestra al instante lo que se vio la última vez (si tiene menos de 1 día) y después se actualiza con la planilla.
